@@ -11,5 +11,6 @@ In that regard, I decided to write a manual which will answer all the *theoritic
 ## When will it be available ?
 Before the begining of next year (2021) class **I hope**, I will maybe be releasing a first version with all the necessary stuff and the complete it during the year.
 ### Usefull links
-You can find the website where we gathered all our material [here](latex.enpc.org).
+You can find the website where we gathered all our material [here](http://latex.enpc.org).
+
 The website of our computing club [here](https://clubinfo.enpc.org/).
