@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}					% gestion des accents (source)
 \usepackage[T1]{fontenc}					% gestion des accents (PDF)
 \usepackage[french]{babel}				    % gestion du français
-
+\frenchbsetup{StandardLists=true}
 \usepackage{textcomp}						% caractères additionnels
 \usepackage{mathtools,amssymb,amsthm}		% packages de l'AMS + mathtools
 \usepackage{lmodern}						% police de caractère
@@ -12,12 +12,14 @@
 \usepackage{empheq}							% pour encadrer.
 
 \usepackage{geometry}						% gestion des marges
-\geometry{top=3cm, bottom=2cm, left=2.5cm, right=2.5cm}
+\geometry{top=1.5cm, bottom=2cm, left=2.5cm, right=2.5cm}
 
+\usepackage{booktabs}
 \usepackage{graphicx}						% gestion des images
 \usepackage{xcolor}							% gestion des couleurs
 \usepackage{array}							% gestion améliorée des tableaux
-\usepackage{multirow}						% gestion améliorée des colonnes
+\usepackage{multirow}
+\usepackage{multicol}						% gestion améliorée des colonnes
 
 \usepackage[framemethod=tikz]{mdframed}		% mise en page
 \usepackage{calc}							% syntaxe naturelle pour les calculs
@@ -39,31 +41,40 @@
 \usetikzlibrary{calc}
 \pgfplotsset{compat=1.7}
 
+\newcommand{\tb}{\textbackslash}
+\newcommand{\cmdo}[3][]{\texttt{\textbackslash #2}\texttt{[}#1\texttt{]\{}#3\texttt{\}}}
+\newcommand{\cmd}[2]{\texttt{\textbackslash #1}\texttt{\{}#2\texttt{\}}}
+
+
 \title{\textbf{Guide d'utilisation de \LaTeX}
 \author{Le KI'022}
 \date{}
 }
 
-\newpagestyle{main}{
-  \sethead{\sectiontitle}                       
-	{}                                          
-	{\quad$|$\quad\thepage}     				
-}
-\pagestyle{main}
-
+\setlength{\parindent}{0pt}
 \begin{document}
 \maketitle
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[scale=0.6]{KI.png}
+\includegraphics[scale=0.5]{ressources/KI.png}
 \end{center}
 \end{figure}
 
 \section*{Préambule}
 
-Cette fiche a pour but de rappeler les différentes commandes \LaTeX \ présentées pendant la formation du KI'022. Lorsqu'une commande est présentée ce qui est en italique est ce qui peut être modifié. Le reste est la commande à proprement parler. \\
-Enfin, n'oublie pas, cher lecteur avide de savoir, que \textbf{Google est ton ami !}
+Ce document a pour but de présenter les fonctionnalités de base et les plus utiles de LaTeX, ce langage étant devenu la norme pour produire des documents scientifiques aujourd'hui. Si vous ne connaissez absolument rien à ce langage pas de panique ! Ce guide est fait pour vous, la première section est consacrée à vous donner les bases qui vous permettrons d'écrire tous vos rapport en 1A. Ensuite, si cela vous intéresse, le guide explore plus en détails les différentes fonctionnalités offertes par LaTeX.\\
+
+Mais d'abord je vais essayer de répondre à la question "A quoi sert {\LaTeX} ?" où plutôt, "Pourquoi me donner du mal à apprendre un langage compliqué si je peux faire plus ou moins la même chose avec Word ?". Le premier truc qu'on vous dira, c'est que LaTeX permet de faire des jolies maths, et c'est probablement ce qui vous servira le plus mais il y a d'autre manières de répondre à cette question:
+\begin{itemize}
+	\item LaTeX vous permets de vous concentrer uniquement sur le \textbf{contenu} de votre document et non sur la forme qui est gérée automatiquement.
+	\item LaTeX demande un certain temps d'adaptation, surtout si vous êtes habitués à Word mais ensuite cela paraîtra naturel.
+	\item Sans parler des maths, LaTeX procure une grande facilité pour ce qui est de référencer ses figures, ses graphiques, faire une bibliographie ou une table des matières. Il sera plus facile et surtout plus rapides de produire un rapport scientifiques avec LaTeX car tout ce que j'ai cité se fera (presque) tout seul.
+\end{itemize}  
+
+Bonne lecture !
+    
+\clearpage
 
 \tableofcontents
 
@@ -72,52 +83,86 @@ Enfin, n'oublie pas, cher lecteur avide de savoir, que \textbf{Google est ton am
 \newpage
 
 
-\section{Commencer \LaTeX rapidement}
-\subsection{La base d'un document \LaTeX}
+\section{Commencer {\LaTeX} rapidement}
+
+\subsection{L'installation}
+
+Avant d'écrire un document LaTeX, il vous faut une distribution de LaTeX. Le plus simple, rapide et efficace est d'utiliser le site \textit{Overleaf}. Il suffit de se connecter et de créer un nouveau document et\dots c'est tout. Il n'y a pas plus simple, le seul désavantage \footnote{Il y en a d'autres, mais peu conséquents par rapport à la facilité d'utilisation procurée par Overleaf} étant que vous allez avoir besoin d'une connexion internet, ce qui sera rarement un soucis.\\
 
 
-\noindent Pour débuter un document \LaTeX \ il faut utiliser un certain nombre de commandes et inclure des paquets\footnote{Le template fourni lors de la formation regroupe les paquets les plus utilisés en pratique.}. Voici la liste des commandes les plus fréquentes : \\
+De plus Overleaf vous permettra de travailler en simultané sur un même document, chose impossible sur un éditeur classique.
+
+Vous trouverez quand même en annexe des conseils pour ceux qui voudraient avoir LaTeX sur leur PC.
+
+\subsection{Les bases d'un document \LaTeX}
+
+
+\noindent Pour débuter un document \LaTeX \ il faut utiliser un certain nombre de commandes et inclure des paquets\footnote{Le template fourni lors de la formation regroupe les paquets les plus utilisés en pratique.}. Voici ce à quoi chacun de vos documents devrait ressembler (commandes obligatoires en \textcolor{red}{rouge} et obligatoires pour un document en français en \textcolor{blue}{bleu}) : \\
 
 \noindent
-\verb?\documentclass[?\emph{options}\verb?]{?\emph{type}\verb?}? \\
-\verb?\usepackage[?\emph{options}\verb?]{?\emph{nom}\verb?}? \\
+\textcolor{red}{\texttt{\tb documentclass[\textit{options}]\{\textit{type}\}}} \\
+\textcolor{blue}{\texttt{\tb usepackage[utf8]\{inputenc\}}} \\
+\textcolor{blue}{\texttt{\tb usepackage[T1]\{fontenc\}}} \\
+\textcolor{blue}{\texttt{\tb usepackage[french]\{babel\}}} \\
+~\\
+\texttt{\tb usepackage[\textit{options}]\{\textit{nom}\}} \\
 ~\\ 
-\verb?\title{?\emph{titre}\verb?}? \\
-\verb?\author{?\emph{auteur}\verb?}? \\
-\verb?\date{?\emph{date}\verb?}? \\
+\texttt{\tb title\{\textit{titre}\}} \\
+\texttt{\tb author\{\textit{auteur}\}} \\
+\texttt{\tb date\{\textit{date}\}} \\
 ~\\ 
-%\verb?\begin{document}? \\
-%\verb?\maketitle? \\
-%~\\ 
-\verb?\tableofcontents? \\
-%\verb?\part{?\emph{titre de la partie}\verb?}? \\
-%\verb?\section{?\emph{titre de la section}\verb?}? la numérotation est évitée avec : \verb?\section*{?\emph{titre de la section}\verb?}? \\
-%\verb?\subsection{?\emph{titre de la sous-section}\verb?}? s'étend en \verb?\subsubsection{?\emph{titre de la sous-sous-section}\verb?}? \\
-%\verb?\paragraph{?\emph{titre du paragraphe}\verb?}? \\
-%~\\ 
-%\verb?\newline? ou \verb?\\? \\
-%\verb?\newpage?\\
-%~\\ 
-%\verb?\end{document}? \\
+\textcolor{red}{\texttt{\tb begin\{document\}}}\\
+\texttt{\tb maketitle} \\
+\texttt{\tb taleofcontents} \\
+~\\
+\texttt{\tb section\{\textit{Titre de la section}\}} \quad (\texttt{\tb section*} pour éviter la numérotation)	 \\
+\texttt{\tb subsection\{\textit{Titre de la sous-section}\}} \\
+\textit{Votre texte}\\
+
+\texttt{\tb subsection\{\textit{Titre de la sous-section}\}} \\
+\textit{Votre texte} \\
+~\\
+\textcolor{red}{\texttt{\tb end\{document\}}} \\
+
+Vous pouvez déjà essayer de reproduire ce schéma (sans le \texttt{\tb usepackage} en noir pour le moment) avec \texttt{\tb documentclass[11pt]\{article\}},remplacez juste ce qui est en italique par le titre, auteur, date, etc\dots et vous devriez avoir un document qui ressemble à ceci:
+\clearpage
+\begin{figure}
+\begin{center}
+	\includegraphics[scale=0.5]{ressources/frover.png}
+\end{center}	
+
+\end{figure}
 
 
+
+Pas mal non ? En quelques lignes vous avez déjà un document prêt à être rendu.
 
 \subsection{Les commandes classiques de mise en page}
 
 
 \noindent Pour modifier le texte, il y a les commandes : \\
+\begin{multicols}{2}
 
-\begin{tabular}{lcl}
 
-\verb?\textbf{?\emph{texte}\verb?}? & $\rightarrow$ & \textbf{texte} \\
-\verb?\textit{?\emph{texte}\verb?}? & $\rightarrow$ & \textit{texte} \\
-\verb?\texttt{?\emph{texte}\verb?}? & $\rightarrow$ & \texttt{texte} \\
-\verb?\underline{?\emph{texte}\verb?}? & $\rightarrow$ & \underline{texte} \\
-\verb?\emph{?\emph{texte}\verb?}? & $\rightarrow$ & \emph{texte} \\
-\verb?\textsc{?\emph{texte}\verb?}? & $\rightarrow$ & \textsc{texte} \\
-\verb?\fbox{?\emph{texte}\verb?}? & $\rightarrow$ & \fbox{texte} \\
+\begin{tabular}{lclc}
+Commande &  & Rendu & Raccourci \\
+\verb?\textbf{?\emph{texte}\verb?}? & $\rightarrow$ & \textbf{texte} & Ctrl + B \\
+\verb?\textit{?\emph{texte}\verb?}? & $\rightarrow$ & \textit{texte} & Ctrl + I \\
+\verb?\texttt{?\emph{texte}\verb?}? & $\rightarrow$ & \texttt{texte} & \\
+\verb?\underline{?\emph{texte}\verb?}? & $\rightarrow$ & \underline{texte}  & \\
+\verb?\emph{?\emph{texte}\verb?}? & $\rightarrow$ & \emph{texte} & \\
+\verb?\textsc{?\emph{texte}\verb?}? & $\rightarrow$ & \textsc{texte} &  \\
+\verb?\fbox{?\emph{texte}\verb?}? & $\rightarrow$ & \fbox{texte} & \\
 
 \end{tabular}\\
+
+\columnbreak
+
+Selon les éditeurs (Overleaf ou autre), il peut y avoir plusieurs raccourcis que ceux-ci, néanmoins il est toujours possible de les utiliser façon "Word", c'est à dire sélectionner le texte à mettre en italique par exemple puis d'appuyer sur Ctrl+I.
+
+\end{multicols}
+
+\begin{multicols}{2}
 
 
 \noindent Les listes à puces (respectivement numérotées) se font avec les commandes suivantes : \\
@@ -125,14 +170,26 @@ Enfin, n'oublie pas, cher lecteur avide de savoir, que \textbf{Google est ton am
 \begin{tabular}{lcl}
 
 \verb?\begin{itemize}? & ou & \verb?\begin{enumerate}? \\
-\indent \verb?\item? \emph{texte} & ou & \indent \verb?\item? \emph{texte} \\
-\indent \verb?\item? \emph{texte} & ou & \indent \verb?\item? \emph{texte} \\
-\verb?\end{itemize}? & ou & \verb?\end{enumerate}? \\
+\indent \verb?\item? \emph{texte} &  & \indent \verb?\item? \emph{texte} \\
+\indent \verb?\item? \emph{texte} &  & \indent \verb?\item? \emph{texte} \\
+\verb?\end{itemize}? &  & \verb?\end{enumerate}? \\
 
 \end{tabular} \\
 
+\columnbreak
 
-\newpage
+Pour des listes avec des $\bullet$ plutôt que des tirets, mettre la commande \texttt{\tb frenchbsetup\{StandardLists=true\}} en début de document (avant le \texttt{\tb begin\{document\}}). On peut également "empiler" plusieurs listes en cascade, elles seront indentées au fur et à mesure.
+\end{multicols}
+
+$\rightarrow$ En LaTeX, le \texttt{\tb begin\{\}} suivi d'un \texttt{\tb end\{\}} s'appelle un environnement, cela permet de formater ce que vous allez mettre entre ces deux commandes. \textcolor{red}{Faire attention à bien mettre le \texttt{\tb begin} et le \texttt{\tb end} sinon ça ne marchera pas !} \\
+\clearpage
+\textbf{Pour les sauts de lignes et paragraphes :} \\
+
+Vous l'avez peut-être remarqué mais en LaTeX, pour revenir a la ligne vous pouvez pas juste appuyer sur la touche \texttt{Enter}, il vous faut soit laisser une ligne blanche, mettre un double backslash \texttt{\tb \tb} à la fin de votre ligne (les deux combinés donne un saut de ligne) ou utiliser la commande \texttt{\tb newline}.
+En fait le retour à la ligne vous permettra de faire un nouveau paragraphe, celui-ci sera indenté par défaut (décalé vers la droite) pour palier ce problème il suffit de mettre \texttt{\tb noindent} en début de ligne ou, pour le faire pour tout le document, mettre la commande \texttt{\tb setlength\{\tb parindent\}\{0pt\}} en début de document (avant le \texttt{\tb begin\{document\}}).\\
+Pareillement, les espaces ne se font pas en appuyant 40 fois sur la touche espace, il faut utiliser des commandes telles que \texttt{\tb quad} et \texttt{\tb qquad}.
+
+\begin{multicols}{2}
 
 
 \noindent Les citations se font de la façon suivante : \\
@@ -143,135 +200,144 @@ Enfin, n'oublie pas, cher lecteur avide de savoir, que \textbf{Google est ton am
 \noindent Et pour des citations de plusieurs lignes : \\
 \verb?\begin{quotation}? \\
 \emph{texte} \\
-\verb?\end{quotation}? \\
+\verb?\end{quotation}? 
 
+\columnbreak
 
 \noindent La commande \verb?\footnote{?\emph{texte}\verb?}? crée une note en bas de page. \\
 
 
-\noindent La position du texte sur la page se modifie avec les commandes : \\
-
-\begin{tabular}{lll}
-
-\verb?\begin{flushleft}? & \verb?\begin{center}? & \verb?\begin{flushright}? \\
-texte & texte & texte \\
-\verb?\end{flushleft}? & \verb?\end{center}? & \verb?\end{flushright}? \\
-
-\end{tabular}
-
-
-
-\subsection{Des commandes plus avancées}
-
-
-\noindent Grâce aux commandes \verb?\label{?\emph{label}\verb?}? et \verb?\ref{?\emph{label}\verb?}? \LaTeX \ fait automatiquement des références numérotées à la section où se trouve \verb?\label{?\emph{label}\verb?}?. \\
-
-
-\noindent Pour inclure une image il faut le paquet : \verb?\usepackage{graphicx}? et ensuite procèder ainsi : \\
-\verb?\begin{figure}[?\emph{option}\verb?]? \\
+\noindent La position du texte sur la page se modifie avec les environnements \texttt{ flushleft, center,  flushright}. C'est certainement le 2e qui vous sera le plus utile: \\
 \verb?\begin{center}? \\
-\verb?\includegraphics[scale=? \emph{fraction} \verb?]{?\emph{chemin d'accès à l'image}\verb?}? \\
-\verb?\caption{?\emph{légende}\verb?}? \\
-\verb?\end{center}? \\
-\verb?\end{figure}? \\
+\emph{texte}\\
+\verb?\end{center}? 
 
+\end{multicols}
 
-\noindent La syntaxe pour faire des tableaux n'est pas très compliquée\footnote{Elle est même très similaire à celle des matrices, voir \ref{matrice}.} mais ce lien permet d'en créer rapidement : http://www.tablesgenerator.com \\
+Voila pour le texte pur et simple, j'en profite pour dire qu'il ne faut pas mémoriser toutes les commandes, par exemple pour les listes, il existe plein d'options pour modifier le type de liste ou même en faire plusieurs en cascade etc\dots Mais il est inutile de retenir tout cela, une simple recherche sur internet vous donnera ce que vous voulez savoir ! Vous trouverez aussi dans ce guide une description des options les plus utiles dans la section [Section name].
 
+\subsection{Les images, tableaux et autres flottants}
 
-\noindent Enfin pour créer une bibliographie il faut procéder ainsi :
+Un des points les plus importants dans un document est l'inclusion d'images, leur référencement et les disposer intelligemment pour ne pas perturber la lecture. Sur ce point, il peut être très compliqué de vouloir faire exactement ce que l'on a en tête en LaTeX car contrairement aux logiciels Office, on ne peut pas déplacer l'image avec la souris.
+Pas exactement certes mais pour la plupart de vos documents, LaTeX va gérer très bien tout seul votre placement d'images.\\
+
+Commençons pas le plus basique, le \cmdo[scale=\textit{échelle}]{includegraphics}{\textit{chemin d'accès à l'image}}.Disons que vous ayez une image \texttt{image.png} dans le même dossier que votre fichier .tex (sur Overleaf vous pouvez directement importer vos images). Pour mettre cette image dans votre document il y a juste besoin d'écrire deux choses: \\
+
 \begin{itemize}
-\item Un fichier \emph{bibliographie.bib} ;
-\item La commande \verb?\cite{?\emph{nom}\verb?}? qui permet de citer une référence ;
-\item Les commandes \verb?\bibliographystyle{?\emph{plain}\verb?}? et \verb?\bibliography{?\emph{bibliographie}\verb?}? qui permettent d'afficher la bibliographie.
+	\item \cmd{usepackage}{graphicx} en début de document.
+	\item \cmdo[scale=$x$]{includegraphics}{image.png} \quad ()avec $x$ le facteur d'échelle entre 0 et 1) là où vous voulez insérer votre image.
 \end{itemize}
+\clearpage
 
-\noindent Les entrées du fichier \emph{bibliographie.bib} se présentent sous la forme :\\
-@article\verb?{?\emph{nom}, \\
-title=\verb?{?\emph{titre}\verb?}?,\\
-author=\verb?{?\emph{auteur}\verb?}?,\\
-\emph{type}\verb?={?\emph{titre global}\verb?}?,\\
-year=\verb?{?\emph{année}\verb?}?\\
-\verb?}?
+Bien sur cette commande fonctionne dans les environnements cités ci-dessus, par exemple si vous voulez centrer votre image: \\
 
 
-\newpage
+\begin{multicols}{2}
+\cmd{begin}{center}\\
+\cmdo[scale=$x$]{includegraphics}{image.png} \\
+\cmd{end}{center}\\
+
+\columnbreak
+
+D'autres paramètres sont possibles plutôt que le scale, voir section [Section name]
+\end{multicols}
+
+
+\textbf{Les flottants}\\
+
+La méthode présentée ci-dessus permet de dire à LaTeX précisément où doivent être insérées vos images. Mais il peut être parfois plus judicieux de laisser LaTeX organiser vos images, pour cela on utilise des flottants (non ce n'est pas pareil que des flottants en info...). Les flottants tiennent leur nom du fait que LaTeX va les déplacer à sa convenance pour faire le meilleur document possible (selon lui libre à vous de changer ensuite).\\
+
+Prenons l'exemple de l'image précédente, nous allons maintenat la mettre dans un environnement supplémentaire nommé \texttt{figure}: \\
+
+\begin{multicols}{2}
+\cmd{begin}{figure}\texttt{[}h\texttt{]}\\
+\texttt{\tb centering} \quad (Equivalent à un center)
+\cmdo[scale=$x$]{includegraphics}{image.png} \\
+\cmd{caption}{légende}\\
+\cmd{end}{figure}\\
+Sans le \texttt{\tb centering}, l'image sera à gauche. 
+
+\columnbreak
+
+L'argument "h" indique que l'on veut que notre image soit ici ("here"), c'est à dire là où on écrit le texte. On peut aussi mettre b ou t pour "top" et "bottom" par exemple, ainsi notre image se retrouvera en haut ou en bas de la page peut importe où l'on a écrit la commande.
+\end{multicols}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.2]{ressources/KI.png}
+	\caption{Le logo du KI}
+\end{figure}
 
 
 
-\subsection{Les commandes mathématiques}
+Voici une image incorporée dans un document avec les commandes ci-dessus. Il y a plein de manière de modifier la légende et l'image à votre convenance, comme l'encadrer, l'inclure dans du texte(package \texttt{wrapfig}) et d'autres. Plus de détails sont donnés dans la section [section name].\\
 
 
-\noindent Le concept est toujours le même, il faut des paquets : \verb?\usepackage{mathtools}? et \verb?\usepackage{amssymb}?. Ensuite il faut définir un environnement mathématiques par \verb?$?\emph{nombres et equations}\verb?$? pour le mettre dans le texte, \verb?$$?\emph{nombres et equations}\verb?$$? pour le mettre centré, à la ligne\footnote{Il en existe d'autre, plus complexe, avec la possibilité de numéroter les équations, voir les liens en \ref{lien}.}. \\
+$\rightarrow$ Attention cependant, LaTeX peut décider de ne pas respecter votre argument entre crochet \texttt{[]} si cela conduit l'image à déborder de la page ou à trop éloigner le titre d'une section de son texte.\\
 
+Un autre exemple de flottants : Les tableaux, ceux-ci ont une syntaxe bien précise mais il existe certains sites comme tablesgenerator.com qui vous simplifie la vie, vous avez juste à rentrer vos donnés et il vous génère le code automatiquement.
 
-\noindent Voici quelques commandes utiles dans cette environnement : \\
+\clearpage
 
-\begin{tabular}{lcl}
+\subsection{Ecrire des mathématiques}
 
-\verb?\frac{?\emph{num}\verb?}{?\emph{den}\verb?}? & $\rightarrow$ & $\frac{\emph{num}}{\emph{den}}$ \\
-\emph{base}\verb?^{?\emph{exposant}\verb?}? & $\rightarrow$ & $base^{exposant}$ \\
-\emph{base}\verb?_{?\emph{indice}\verb?}? & $\rightarrow$ & $base_{indice}$ \\
-\verb?\sum_{?\emph{bas}\verb?}^{?\emph{haut}\verb?}?\emph{terme} & $\rightarrow$ & $\sum_{bas}^{haut} terme$ \\ 
-\verb?\prod_{?\emph{bas}\verb?}^{?\emph{haut}\verb?}?\emph{terme} & $\rightarrow$ & $\prod_{bas}^{haut} terme$ \\
-\verb?\sqrt{?\emph{expression}\verb?}? & $\rightarrow$ & $\sqrt{expression}$ \\
-\verb?\sqrt[?\emph{n}\verb?]{?\emph{expression}\verb?}? & $\rightarrow$ & $\sqrt[n]{expression}$ \\
-\verb?\lim_{?\emph{expression}\verb?}? & $\rightarrow$ & $\lim_{expression}$ \\
-\verb?\int_{?\emph{bas}\verb?}^{?\emph{haut}\verb?}?\emph{terme} & $\rightarrow$ & $\int_{bas}^{haut} terme$ \\
+On aborde ici une grosse partie de ce que vous allez faire en LaTeX, au début cela va être un peu laborieux, car vous passerez votre temps à regarder la magnifique fiche mémo faite par le KI (disponible à l'adresse latex.enpc.org) avec entre autre les commandes mathématiques. Mais ces commandes sont assez naturels et vous les mémoriserez assez vite.\\
 
-\end{tabular}\\
+Avant toute chose, assurez vous d'avoir mis \cmd{usepackage}{amsmath} en préambule.
 
+Pour écrire des maths, c'est très simple, il suffit de se placer dans un environnement mathématique, obtenu avec \texttt{\tb( \tb)} ou \texttt{\tb[ \tb]}. 
 
-\noindent Et en complément quelques symboles mathématiques fréquents : \\
+\begin{multicols}{2}
+Ainsi le code suivant:\\
+\textsf{Le théorème de Pythagore \texttt{\tb(} $\text{x}^{\wedge}$2+ $\text{y}^{\wedge}$2 = $\text{z}^{\wedge}$2 \texttt{\tb)} a été prouvé faux pour des puissances supérieures. Cela veut dire que l'équation suivante n'a pas de solutions entières:
+	 \texttt{\tb[} $\text{x}^{\wedge}$n + $\text{y}^{\wedge}$n = $\text{z}^{\wedge}$n \texttt{\tb}] }
+	
+	\columnbreak
+	
+	Devient sur le pdf:\\	
+	Le théorème de Pythagore $x^2 + y^2 = z^2$ a été prouvé faux pour des puissances supérieures. Cela veut dire que l'équation suivante n'a pas de solutions entières: \[ x^n + y^n = z^n \]
+	
+	
+	
+\end{multicols}
+Observez la différences entre les deux, le \texttt{\tb( \tb)} permet d'écrire des maths sur la même ligne que le texte en cours alors que \texttt{\tb[ \tb]} centre vos maths en sautant une ligne (\textbf{inline} vs \textbf{display} mode). Vous pouvez aussi utiliser le \$ plutôt \texttt{\tb(} et \texttt{\tb)} pour un environnement inline.
 
-\begin{tabular}{lcl}
+Si vous voulez numéroter vos équations alors il faut utiliser l'environnement \texttt{equation}:
+\begin{equation}
+x^2 +y^2 = z^2
+\end{equation}
 
-\verb?\forall? & $\rightarrow$ & $\forall$ \\
-\verb?\exists? & $\rightarrow$ & $\exists$ \\
-\verb?\in? & $\rightarrow$ & $\in$ \\
-\verb?\to? & $\rightarrow$ & $\to$ \\
-\verb?\infty? & $\rightarrow$ & $\infty$ \\
-\verb?\partial? & $\rightarrow$ & $\partial$ \\
-\verb?\mathbb{?\emph{R}\verb?}? & $\rightarrow$ & $\mathbb{R}$ \\
-\verb?\mathcal{?\emph{R}\verb?}? & $\rightarrow$ & $\mathcal{R}$ \\
-\verb?\mathbf{?\emph{R}\verb?}? & $\rightarrow$ & $\mathbf{R}$ \\
+Vous pouvez inclure toutes sortes de symboles dans un environnement mathématiques comme des lettres grecques $\alpha \ \beta \ \gamma$, des signes logiques et quantificateurs $\forall \ \exists \bigcup \sum$. La plupart de ces symboles sont répertoriés dans la fiche mémo distribuée lors de la formation ou disponible latex.enpc.org.\\
 
-\end{tabular} \\
+\textbf{Puissance et indice}\\
 
+Pour écrire des puissances et des indices à coté d'une variable ou d'un symbole, il faut utiliser \verb|^ et _|.
 
-\noindent Et voici comment faire les lettres greques, minuscules et majuscules :
-\begin{tabular}{lcl}
+\begin{multicols}{2}
+Le code suivant:\\
 
-\textbackslash\emph{alpha} & $\rightarrow$ & $\alpha$ \\
-\textbackslash\emph{Omega} & $\rightarrow$ & $\Omega$ \\
+\verb|\[ a_1^2 + a_2^2 = a_3^2 \]| \\
 
-\end{tabular} \\
+En utilisant des \texttt{\{ \}} lorsque les exposants/indices ne sont pas un seul symbole:\\
 
+\verb|\[ x^2{2 \alpha} - 1 = y_{ij} + y_{ij} \]|\\
 
-\noindent Voici enfin les commandes nécessaires à l'écriture de matrice\footnote{Il faut être dans un environnement mathématique, bien sûr.}\label{matrice} : \\
+Plus compliqué:\\
 
-\begin{tabular}{lcl}
+\verb|\[ \sum_{i=1}^{\infty} \frac{1}{n^s} =| \\
+\verb| \prod_p \frac{1}{1 - p^{-s}} \] |
 
-\verb?\begin{matrix}? & & \\
+\columnbreak
 
-$\begin{matrix}
-	 & a & \verb?&? & b & \verb?\\? \\
-	 & c & \verb?&? & d & \verb?\\? \\
-\end{matrix}$ & $\rightarrow$ & $\begin{matrix}
-	a & b \\
-	c & d \\
-\end{matrix}$ \\
+Devient sur le pdf:\\
 
-\verb?\end{matrix}? & &
+$$ a_1^2 + a_2^2 = a_3^2$$\\
+$$ x^2{2 \alpha} - 1 = y_{ij} + y_{ij} $$\\
+\[ \sum_{i=1}^{\infty} \frac{1}{n^s} = \prod_p \frac{1}{1 - p^{-s}} \]
 
-\end{tabular} \\
+\end{multicols}
 
-\noindent Il est possible d'avoir des matrices avec parenthèses en remplaçant \emph{matrix} par \emph{pmatrix}; pour avoir des crochets : \emph{bmatrix}; et pour des barres : \emph{vmatrix}.
-
-\noindent Pour remplir une matrice de point : \verb?\cdots? donne $\cdots$ ou encore, \emph{cdots} peut être remplacé par \emph{vdot}\footnote{Point verticaux $\vdots$} ou \emph{ddots}\footnote{Point diagonaux $\ddots$}. \\
-
-
-\noindent Un système d'équation se fait simplement comme un tableau encadré de \verb?\left\{? et \verb?\right?.
 
 
 \newpage
@@ -332,6 +398,22 @@ for (int i = 0; i < 10; i++) {
 
 \noindent ShareLaTeX est une solution pratique pour s'éviter l'installation de \LaTeX \ et faire des projets à plusieurs\footnote{Deux maximum sur la version gratuite.}, néanmoins, il peut être utile d'avoir \LaTeX \ sur son propre ordinateur et donc d'avoir un logiciel de traitement de texte adapté : Sublime Text \footnote{Sublime Text doit être configuré pour gérer \LaTeX.} et TexMaker sont de bons logiciel testés et approuvés par le KI'018.
 
+\section{Formatage de texte}
 
+\section{Design de pages}
+
+\section{Les listes}
+
+\section{Tableaux et images}
+
+\section{Références}
+
+\section{Maths avancées}
+
+\section{Choisir sa police}
+
+\section{Pour aller plus loin}
+
+\section{Les erreurs les plus communes}
 
 \end{document}
