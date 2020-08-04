@@ -1,0 +1,337 @@
+\documentclass[11pt]{article}				% autres choix : book, report
+
+\usepackage[utf8]{inputenc}					% gestion des accents (source)
+\usepackage[T1]{fontenc}					% gestion des accents (PDF)
+\usepackage[french]{babel}				    % gestion du français
+
+\usepackage{textcomp}						% caractères additionnels
+\usepackage{mathtools,amssymb,amsthm}		% packages de l'AMS + mathtools
+\usepackage{lmodern}						% police de caractère
+\usepackage{stmaryrd}						% symboles supplémentaires
+\usepackage{csquotes}
+\usepackage{empheq}							% pour encadrer.
+
+\usepackage{geometry}						% gestion des marges
+\geometry{top=3cm, bottom=2cm, left=2.5cm, right=2.5cm}
+
+\usepackage{graphicx}						% gestion des images
+\usepackage{xcolor}							% gestion des couleurs
+\usepackage{array}							% gestion améliorée des tableaux
+\usepackage{multirow}						% gestion améliorée des colonnes
+
+\usepackage[framemethod=tikz]{mdframed}		% mise en page
+\usepackage{calc}							% syntaxe naturelle pour les calculs
+\usepackage[pagestyles]{titlesec}			% pour les sections
+\usepackage{titletoc}						% pour la table des matières
+\usepackage{fancyhdr}						% pour les en-têtes
+\usepackage{wrapfig}
+
+\usepackage{tikz, pgf}
+\usepackage{tikz-3dplot}
+\usepackage{tkz-euclide}
+\usepackage{pgfplots}						% tracer des courbes
+\usepackage{pgfplotstable}
+
+\usepackage{hyperref}						% permet de mettre des url cliquables
+\usepackage{listings}						% permet de mettre du code
+
+%\usetkzobj{all}
+\usetikzlibrary{calc}
+\pgfplotsset{compat=1.7}
+
+\title{\textbf{Guide d'utilisation de \LaTeX}
+\author{Le KI'022}
+\date{}
+}
+
+\newpagestyle{main}{
+  \sethead{\sectiontitle}                       
+	{}                                          
+	{\quad$|$\quad\thepage}     				
+}
+\pagestyle{main}
+
+\begin{document}
+\maketitle
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.6]{KI.png}
+\end{center}
+\end{figure}
+
+\section*{Préambule}
+
+Cette fiche a pour but de rappeler les différentes commandes \LaTeX \ présentées pendant la formation du KI'022. Lorsqu'une commande est présentée ce qui est en italique est ce qui peut être modifié. Le reste est la commande à proprement parler. \\
+Enfin, n'oublie pas, cher lecteur avide de savoir, que \textbf{Google est ton ami !}
+
+\tableofcontents
+
+
+
+\newpage
+
+
+\section{Commencer \LaTeX rapidement}
+\subsection{La base d'un document \LaTeX}
+
+
+\noindent Pour débuter un document \LaTeX \ il faut utiliser un certain nombre de commandes et inclure des paquets\footnote{Le template fourni lors de la formation regroupe les paquets les plus utilisés en pratique.}. Voici la liste des commandes les plus fréquentes : \\
+
+\noindent
+\verb?\documentclass[?\emph{options}\verb?]{?\emph{type}\verb?}? \\
+\verb?\usepackage[?\emph{options}\verb?]{?\emph{nom}\verb?}? \\
+~\\ 
+\verb?\title{?\emph{titre}\verb?}? \\
+\verb?\author{?\emph{auteur}\verb?}? \\
+\verb?\date{?\emph{date}\verb?}? \\
+~\\ 
+%\verb?\begin{document}? \\
+%\verb?\maketitle? \\
+%~\\ 
+\verb?\tableofcontents? \\
+%\verb?\part{?\emph{titre de la partie}\verb?}? \\
+%\verb?\section{?\emph{titre de la section}\verb?}? la numérotation est évitée avec : \verb?\section*{?\emph{titre de la section}\verb?}? \\
+%\verb?\subsection{?\emph{titre de la sous-section}\verb?}? s'étend en \verb?\subsubsection{?\emph{titre de la sous-sous-section}\verb?}? \\
+%\verb?\paragraph{?\emph{titre du paragraphe}\verb?}? \\
+%~\\ 
+%\verb?\newline? ou \verb?\\? \\
+%\verb?\newpage?\\
+%~\\ 
+%\verb?\end{document}? \\
+
+
+
+\subsection{Les commandes classiques de mise en page}
+
+
+\noindent Pour modifier le texte, il y a les commandes : \\
+
+\begin{tabular}{lcl}
+
+\verb?\textbf{?\emph{texte}\verb?}? & $\rightarrow$ & \textbf{texte} \\
+\verb?\textit{?\emph{texte}\verb?}? & $\rightarrow$ & \textit{texte} \\
+\verb?\texttt{?\emph{texte}\verb?}? & $\rightarrow$ & \texttt{texte} \\
+\verb?\underline{?\emph{texte}\verb?}? & $\rightarrow$ & \underline{texte} \\
+\verb?\emph{?\emph{texte}\verb?}? & $\rightarrow$ & \emph{texte} \\
+\verb?\textsc{?\emph{texte}\verb?}? & $\rightarrow$ & \textsc{texte} \\
+\verb?\fbox{?\emph{texte}\verb?}? & $\rightarrow$ & \fbox{texte} \\
+
+\end{tabular}\\
+
+
+\noindent Les listes à puces (respectivement numérotées) se font avec les commandes suivantes : \\
+
+\begin{tabular}{lcl}
+
+\verb?\begin{itemize}? & ou & \verb?\begin{enumerate}? \\
+\indent \verb?\item? \emph{texte} & ou & \indent \verb?\item? \emph{texte} \\
+\indent \verb?\item? \emph{texte} & ou & \indent \verb?\item? \emph{texte} \\
+\verb?\end{itemize}? & ou & \verb?\end{enumerate}? \\
+
+\end{tabular} \\
+
+
+\newpage
+
+
+\noindent Les citations se font de la façon suivante : \\
+\verb?\begin{quote}? \\
+\emph{texte} \\
+\verb?\end{quote}? \\
+
+\noindent Et pour des citations de plusieurs lignes : \\
+\verb?\begin{quotation}? \\
+\emph{texte} \\
+\verb?\end{quotation}? \\
+
+
+\noindent La commande \verb?\footnote{?\emph{texte}\verb?}? crée une note en bas de page. \\
+
+
+\noindent La position du texte sur la page se modifie avec les commandes : \\
+
+\begin{tabular}{lll}
+
+\verb?\begin{flushleft}? & \verb?\begin{center}? & \verb?\begin{flushright}? \\
+texte & texte & texte \\
+\verb?\end{flushleft}? & \verb?\end{center}? & \verb?\end{flushright}? \\
+
+\end{tabular}
+
+
+
+\subsection{Des commandes plus avancées}
+
+
+\noindent Grâce aux commandes \verb?\label{?\emph{label}\verb?}? et \verb?\ref{?\emph{label}\verb?}? \LaTeX \ fait automatiquement des références numérotées à la section où se trouve \verb?\label{?\emph{label}\verb?}?. \\
+
+
+\noindent Pour inclure une image il faut le paquet : \verb?\usepackage{graphicx}? et ensuite procèder ainsi : \\
+\verb?\begin{figure}[?\emph{option}\verb?]? \\
+\verb?\begin{center}? \\
+\verb?\includegraphics[scale=? \emph{fraction} \verb?]{?\emph{chemin d'accès à l'image}\verb?}? \\
+\verb?\caption{?\emph{légende}\verb?}? \\
+\verb?\end{center}? \\
+\verb?\end{figure}? \\
+
+
+\noindent La syntaxe pour faire des tableaux n'est pas très compliquée\footnote{Elle est même très similaire à celle des matrices, voir \ref{matrice}.} mais ce lien permet d'en créer rapidement : http://www.tablesgenerator.com \\
+
+
+\noindent Enfin pour créer une bibliographie il faut procéder ainsi :
+\begin{itemize}
+\item Un fichier \emph{bibliographie.bib} ;
+\item La commande \verb?\cite{?\emph{nom}\verb?}? qui permet de citer une référence ;
+\item Les commandes \verb?\bibliographystyle{?\emph{plain}\verb?}? et \verb?\bibliography{?\emph{bibliographie}\verb?}? qui permettent d'afficher la bibliographie.
+\end{itemize}
+
+\noindent Les entrées du fichier \emph{bibliographie.bib} se présentent sous la forme :\\
+@article\verb?{?\emph{nom}, \\
+title=\verb?{?\emph{titre}\verb?}?,\\
+author=\verb?{?\emph{auteur}\verb?}?,\\
+\emph{type}\verb?={?\emph{titre global}\verb?}?,\\
+year=\verb?{?\emph{année}\verb?}?\\
+\verb?}?
+
+
+\newpage
+
+
+
+\subsection{Les commandes mathématiques}
+
+
+\noindent Le concept est toujours le même, il faut des paquets : \verb?\usepackage{mathtools}? et \verb?\usepackage{amssymb}?. Ensuite il faut définir un environnement mathématiques par \verb?$?\emph{nombres et equations}\verb?$? pour le mettre dans le texte, \verb?$$?\emph{nombres et equations}\verb?$$? pour le mettre centré, à la ligne\footnote{Il en existe d'autre, plus complexe, avec la possibilité de numéroter les équations, voir les liens en \ref{lien}.}. \\
+
+
+\noindent Voici quelques commandes utiles dans cette environnement : \\
+
+\begin{tabular}{lcl}
+
+\verb?\frac{?\emph{num}\verb?}{?\emph{den}\verb?}? & $\rightarrow$ & $\frac{\emph{num}}{\emph{den}}$ \\
+\emph{base}\verb?^{?\emph{exposant}\verb?}? & $\rightarrow$ & $base^{exposant}$ \\
+\emph{base}\verb?_{?\emph{indice}\verb?}? & $\rightarrow$ & $base_{indice}$ \\
+\verb?\sum_{?\emph{bas}\verb?}^{?\emph{haut}\verb?}?\emph{terme} & $\rightarrow$ & $\sum_{bas}^{haut} terme$ \\ 
+\verb?\prod_{?\emph{bas}\verb?}^{?\emph{haut}\verb?}?\emph{terme} & $\rightarrow$ & $\prod_{bas}^{haut} terme$ \\
+\verb?\sqrt{?\emph{expression}\verb?}? & $\rightarrow$ & $\sqrt{expression}$ \\
+\verb?\sqrt[?\emph{n}\verb?]{?\emph{expression}\verb?}? & $\rightarrow$ & $\sqrt[n]{expression}$ \\
+\verb?\lim_{?\emph{expression}\verb?}? & $\rightarrow$ & $\lim_{expression}$ \\
+\verb?\int_{?\emph{bas}\verb?}^{?\emph{haut}\verb?}?\emph{terme} & $\rightarrow$ & $\int_{bas}^{haut} terme$ \\
+
+\end{tabular}\\
+
+
+\noindent Et en complément quelques symboles mathématiques fréquents : \\
+
+\begin{tabular}{lcl}
+
+\verb?\forall? & $\rightarrow$ & $\forall$ \\
+\verb?\exists? & $\rightarrow$ & $\exists$ \\
+\verb?\in? & $\rightarrow$ & $\in$ \\
+\verb?\to? & $\rightarrow$ & $\to$ \\
+\verb?\infty? & $\rightarrow$ & $\infty$ \\
+\verb?\partial? & $\rightarrow$ & $\partial$ \\
+\verb?\mathbb{?\emph{R}\verb?}? & $\rightarrow$ & $\mathbb{R}$ \\
+\verb?\mathcal{?\emph{R}\verb?}? & $\rightarrow$ & $\mathcal{R}$ \\
+\verb?\mathbf{?\emph{R}\verb?}? & $\rightarrow$ & $\mathbf{R}$ \\
+
+\end{tabular} \\
+
+
+\noindent Et voici comment faire les lettres greques, minuscules et majuscules :
+\begin{tabular}{lcl}
+
+\textbackslash\emph{alpha} & $\rightarrow$ & $\alpha$ \\
+\textbackslash\emph{Omega} & $\rightarrow$ & $\Omega$ \\
+
+\end{tabular} \\
+
+
+\noindent Voici enfin les commandes nécessaires à l'écriture de matrice\footnote{Il faut être dans un environnement mathématique, bien sûr.}\label{matrice} : \\
+
+\begin{tabular}{lcl}
+
+\verb?\begin{matrix}? & & \\
+
+$\begin{matrix}
+	 & a & \verb?&? & b & \verb?\\? \\
+	 & c & \verb?&? & d & \verb?\\? \\
+\end{matrix}$ & $\rightarrow$ & $\begin{matrix}
+	a & b \\
+	c & d \\
+\end{matrix}$ \\
+
+\verb?\end{matrix}? & &
+
+\end{tabular} \\
+
+\noindent Il est possible d'avoir des matrices avec parenthèses en remplaçant \emph{matrix} par \emph{pmatrix}; pour avoir des crochets : \emph{bmatrix}; et pour des barres : \emph{vmatrix}.
+
+\noindent Pour remplir une matrice de point : \verb?\cdots? donne $\cdots$ ou encore, \emph{cdots} peut être remplacé par \emph{vdot}\footnote{Point verticaux $\vdots$} ou \emph{ddots}\footnote{Point diagonaux $\ddots$}. \\
+
+
+\noindent Un système d'équation se fait simplement comme un tableau encadré de \verb?\left\{? et \verb?\right?.
+
+
+\newpage
+
+
+
+\subsection{Complément}
+
+
+\subsubsection{Inclure du code}
+
+
+\noindent Il est également possible d'inclure du code dans un fichier \LaTeX \ grâce au paquet \verb?\usepackage{listings}? et aux commandes suivantes : \\
+
+\noindent \verb?\lstset{language=? \emph{nom de langage} \verb?}? \\
+\verb?\begin{lstlisting}? \\
+\emph{Le code, tel qu'il serait écrit dans un éditeur de texte classique. Exemple de code Python :} \\
+for i in range (0: N) : \\
+\indent X[i] = methode(X[i - 1]) \\
+\verb?\end{lstlisting}? \\
+
+\noindent Cela va inclure le code ainsi :
+
+\lstset{language=c++}
+\begin{lstlisting}
+
+// New function.
+int function(int x) {
+    return x * 10;
+}
+
+for (int i = 0; i < 10; i++) {
+	int j = function(i);
+	std::cout << j << std::endl;
+}
+
+\end{lstlisting}
+
+\noindent Il existe de nombreuses options pour ajouter la coloration syntaxique, encadrer le code, numéroter les lignes, mais les liens fournis en \ref{lien} expliquent tous ces détails.
+
+
+\subsubsection{Liens utiles}\label{lien}
+
+
+\noindent Voici quelque lien utile pour chercher des commandes, des options ou des précisions supplémentaires :
+\begin{itemize}
+	\item \url{https://www.google.com}
+	\item \url{tex.stackexchange.com}
+	\item \url{https://fr.wikibooks.org/wiki/LaTeX}
+	\item \url{https://openclassrooms.com/courses/redigez-des-documents-de-qualite-avec-latex}
+	\item \url{https://fr.sharelatex.com}
+	\item \url{https://upont.enpc.fr/ponthub/autres}
+\end{itemize}
+
+
+\subsubsection{Logiciel conseillé}
+
+
+\noindent ShareLaTeX est une solution pratique pour s'éviter l'installation de \LaTeX \ et faire des projets à plusieurs\footnote{Deux maximum sur la version gratuite.}, néanmoins, il peut être utile d'avoir \LaTeX \ sur son propre ordinateur et donc d'avoir un logiciel de traitement de texte adapté : Sublime Text \footnote{Sublime Text doit être configuré pour gérer \LaTeX.} et TexMaker sont de bons logiciel testés et approuvés par le KI'018.
+
+
+
+\end{document}
