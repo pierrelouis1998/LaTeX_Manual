@@ -20,6 +20,7 @@
 \usepackage{array}							% gestion améliorée des tableaux
 \usepackage{multirow}
 \usepackage{multicol}						% gestion améliorée des colonnes
+\usepackage{subfig}
 
 \usepackage[framemethod=tikz]{mdframed}		% mise en page
 \usepackage{calc}							% syntaxe naturelle pour les calculs
@@ -42,8 +43,10 @@
 \pgfplotsset{compat=1.7}
 
 \newcommand{\tb}{\textbackslash}
-\newcommand{\cmdo}[3][]{\texttt{\textbackslash #2}\texttt{[}#1\texttt{]\{}#3\texttt{\}}}
-\newcommand{\cmd}[2]{\texttt{\textbackslash #1}\texttt{\{}#2\texttt{\}}}
+\newcommand{\cmdo}[3][]{\texttt{\textbackslash #2}\texttt{[#1}\texttt{]\{#3\}}}
+\newcommand{\cmdoi}[3][]{\texttt{\textbackslash #2}\texttt{[}\textit{#1}\texttt{]\{}\textit{#3}\texttt{\}}}
+\newcommand{\cmd}[2]{\texttt{\textbackslash #1}\texttt{\{#2\}}}
+\newcommand{\cmdi}[2]{\texttt{\textbackslash #1}\texttt{\{}\textit{#2}\texttt{\}}}
 
 
 \title{\textbf{Guide d'utilisation de \LaTeX}
@@ -65,11 +68,11 @@
 
 Ce document a pour but de présenter les fonctionnalités de base et les plus utiles de LaTeX, ce langage étant devenu la norme pour produire des documents scientifiques aujourd'hui. Si vous ne connaissez absolument rien à ce langage pas de panique ! Ce guide est fait pour vous, la première section est consacrée à vous donner les bases qui vous permettrons d'écrire tous vos rapport en 1A. Ensuite, si cela vous intéresse, le guide explore plus en détails les différentes fonctionnalités offertes par LaTeX.\\
 
-Mais d'abord je vais essayer de répondre à la question "A quoi sert {\LaTeX} ?" où plutôt, "Pourquoi me donner du mal à apprendre un langage compliqué si je peux faire plus ou moins la même chose avec Word ?". Le premier truc qu'on vous dira, c'est que LaTeX permet de faire des jolies maths, et c'est probablement ce qui vous servira le plus mais il y a d'autre manières de répondre à cette question:
+Mais d'abord je vais essayer de répondre à la question "A quoi sert {\LaTeX} ?" où plutôt: "Pourquoi me donner du mal à apprendre un langage compliqué si je peux faire plus ou moins la même chose avec Word ?". Le premier truc qu'on vous dira, c'est que LaTeX permet de faire des jolies maths, et c'est probablement ce qui vous servira le plus mais il y a d'autre manières de répondre à cette question:
 \begin{itemize}
 	\item LaTeX vous permets de vous concentrer uniquement sur le \textbf{contenu} de votre document et non sur la forme qui est gérée automatiquement.
-	\item LaTeX demande un certain temps d'adaptation, surtout si vous êtes habitués à Word mais ensuite cela paraîtra naturel.
-	\item Sans parler des maths, LaTeX procure une grande facilité pour ce qui est de référencer ses figures, ses graphiques, faire une bibliographie ou une table des matières. Il sera plus facile et surtout plus rapides de produire un rapport scientifiques avec LaTeX car tout ce que j'ai cité se fera (presque) tout seul.
+	\item LaTeX demande un certain temps d'adaptation, surtout si vous êtes habitués à Word mais les documents produits sont de plus grande qualité et font plus "scientifique".
+	\item Sans parler des maths, LaTeX procure une grande facilité pour ce qui est de référencer ses figures, ses graphiques, faire une bibliographie ou une table des matières. Il sera plus facile et surtout plus rapide de produire un rapport scientifique avec LaTeX car tout ce que j'ai cité se fera (presque) tout seul.
 \end{itemize}  
 
 Bonne lecture !
@@ -88,11 +91,21 @@ Bonne lecture !
 \subsection{L'installation}
 
 Avant d'écrire un document LaTeX, il vous faut une distribution de LaTeX. Le plus simple, rapide et efficace est d'utiliser le site \textit{Overleaf}. Il suffit de se connecter et de créer un nouveau document et\dots c'est tout. Il n'y a pas plus simple, le seul désavantage \footnote{Il y en a d'autres, mais peu conséquents par rapport à la facilité d'utilisation procurée par Overleaf} étant que vous allez avoir besoin d'une connexion internet, ce qui sera rarement un soucis.\\
+Pour commencer un nouveau document il vous suffit de cliquer sur "Nouveau projet" $\longrightarrow$ "Projet vide" et vous devriez tomber sur quelque chose qui ressemble à l'image ci-dessous.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.25]{ressources/overleaf_projet_vide.png}
+\end{figure}	
+
+Pour le moment, effacez tout le contenu de la page de gauche, nous  allons repartir de zéro pour cette fois. Appuyez ensuite sur le bouton "Recompiler" et vous devriez avoir une page blanche sur la droite.
+Voila une des principales caractéristiques de LaTeX, contrairement à Word ou d'autres logiciels de traitements de texte, ce n'est pas du temps réel. C'est à dire que vous allez écrire du code et ensuite compiler ce code pour obtenir un document PDF. Je vous conseille de souvent compiler votre code pour vous rendre compte de ce que vous écrivez, vous pouvez le faire soit en appuyant sur le bouton "Recompiler" ou avec les touches Ctrl+Enter.\\
 
 
-De plus Overleaf vous permettra de travailler en simultané sur un même document, chose impossible sur un éditeur classique.
 
+Un autre avantage d'Overleaf est qu'il vous permettra de travailler en simultané sur un même document, chose impossible sur un éditeur classique.
 Vous trouverez quand même en annexe des conseils pour ceux qui voudraient avoir LaTeX sur leur PC.
+
+\clearpage
 
 \subsection{Les bases d'un document \LaTeX}
 
@@ -100,42 +113,42 @@ Vous trouverez quand même en annexe des conseils pour ceux qui voudraient avoir
 \noindent Pour débuter un document \LaTeX \ il faut utiliser un certain nombre de commandes et inclure des paquets\footnote{Le template fourni lors de la formation regroupe les paquets les plus utilisés en pratique.}. Voici ce à quoi chacun de vos documents devrait ressembler (commandes obligatoires en \textcolor{red}{rouge} et obligatoires pour un document en français en \textcolor{blue}{bleu}) : \\
 
 \noindent
-\textcolor{red}{\texttt{\tb documentclass[\textit{options}]\{\textit{type}\}}} \\
-\textcolor{blue}{\texttt{\tb usepackage[utf8]\{inputenc\}}} \\
-\textcolor{blue}{\texttt{\tb usepackage[T1]\{fontenc\}}} \\
-\textcolor{blue}{\texttt{\tb usepackage[french]\{babel\}}} \\
+\textcolor{red}{\cmdoi[options]{documentclass}{type}} \\
+\textcolor{blue}{\cmdo[utf8]{usepackage}{inputenc}} \\
+\textcolor{blue}{\cmdo[french]{usepackage}{babel}} \\
+\textcolor{blue}{\cmdo[T1]{usepackage}{fontenc}} \\
 ~\\
-\texttt{\tb usepackage[\textit{options}]\{\textit{nom}\}} \\
+\cmdoi[options]{usepackage}{nom} \\
 ~\\ 
-\texttt{\tb title\{\textit{titre}\}} \\
-\texttt{\tb author\{\textit{auteur}\}} \\
-\texttt{\tb date\{\textit{date}\}} \\
+\cmdi{title}{titre} \\
+\cmdi{author}{auteur} \\
+\cmdi{date}{date} \\
 ~\\ 
-\textcolor{red}{\texttt{\tb begin\{document\}}}\\
+\textcolor{red}{\cmd{begin}{document}}\\
 \texttt{\tb maketitle} \\
 \texttt{\tb taleofcontents} \\
 ~\\
-\texttt{\tb section\{\textit{Titre de la section}\}} \quad (\texttt{\tb section*} pour éviter la numérotation)	 \\
-\texttt{\tb subsection\{\textit{Titre de la sous-section}\}} \\
+\cmdi{section}{titre de la section} \quad (\texttt{\tb section*} pour éviter la numérotation)	 \\
+\cmdi{subsection}{titre de la sous-section} \\
 \textit{Votre texte}\\
 
-\texttt{\tb subsection\{\textit{Titre de la sous-section}\}} \\
+\cmdi{subsection}{titre de la sous-section} \\
 \textit{Votre texte} \\
 ~\\
 \textcolor{red}{\texttt{\tb end\{document\}}} \\
 
-Vous pouvez déjà essayer de reproduire ce schéma (sans le \texttt{\tb usepackage} en noir pour le moment) avec \texttt{\tb documentclass[11pt]\{article\}},remplacez juste ce qui est en italique par le titre, auteur, date, etc\dots et vous devriez avoir un document qui ressemble à ceci:
-\clearpage
-\begin{figure}
+Vous pouvez déjà essayer de reproduire ce schéma (sans le \texttt{\tb usepackage} en noir pour le moment) avec \texttt{\tb documentclass[11pt]\{article\}},remplacez juste ce qui est en italique par le titre, auteur, date, etc\dots, appuyez sur Ctrl+Enter et vous devriez avoir un document qui ressemble à ceci:
+\begin{figure}[h!]
 \begin{center}
-	\includegraphics[scale=0.5]{ressources/frover.png}
+	\includegraphics[scale=0.4]{ressources/frover.png}
 \end{center}	
 
 \end{figure}
 
 
+Pas mal non ? En quelques lignes vous avez déjà un document prêt à être rendu.\\
 
-Pas mal non ? En quelques lignes vous avez déjà un document prêt à être rendu.
+$\rightarrow$ Vous avez d'autre commandes pour faire des sections, comme \texttt{\tb part  \tb chapter  \tb subsubsection} mais certaines sont spécifiques à certaines classes (ici on utilise la classe article, voir section [Section name] pour en savoir plus sur les classes).
 
 \subsection{Les commandes classiques de mise en page}
 
@@ -158,7 +171,7 @@ Commande &  & Rendu & Raccourci \\
 
 \columnbreak
 
-Selon les éditeurs (Overleaf ou autre), il peut y avoir plusieurs raccourcis que ceux-ci, néanmoins il est toujours possible de les utiliser façon "Word", c'est à dire sélectionner le texte à mettre en italique par exemple puis d'appuyer sur Ctrl+I.
+$\rightarrow$ Selon les éditeurs (Overleaf ou autre), il peut y avoir plusieurs raccourcis que ceux-ci, néanmoins il est toujours possible de les utiliser façon "Word", c'est à dire sélectionner le texte puis appuyer sur Ctrl+I pour le mettre en italique par exemple .
 
 \end{multicols}
 
@@ -169,25 +182,20 @@ Selon les éditeurs (Overleaf ou autre), il peut y avoir plusieurs raccourcis qu
 
 \begin{tabular}{lcl}
 
-\verb?\begin{itemize}? & ou & \verb?\begin{enumerate}? \\
+\cmd{begin}{itemize} & ou & \cmd{begin}{enumerate} \\
 \indent \verb?\item? \emph{texte} &  & \indent \verb?\item? \emph{texte} \\
 \indent \verb?\item? \emph{texte} &  & \indent \verb?\item? \emph{texte} \\
-\verb?\end{itemize}? &  & \verb?\end{enumerate}? \\
+\cmd{end}{itemize} &  & \cmd{end}{enumerate} \\
 
 \end{tabular} \\
 
 \columnbreak
 
-Pour des listes avec des $\bullet$ plutôt que des tirets, mettre la commande \texttt{\tb frenchbsetup\{StandardLists=true\}} en début de document (avant le \texttt{\tb begin\{document\}}). On peut également "empiler" plusieurs listes en cascade, elles seront indentées au fur et à mesure.
+$\rightarrow$ Pour des listes avec des $\bullet$ plutôt que des tirets, mettre la commande \texttt{\tb frenchbsetup\{StandardLists=true\}} en début de document (avant le \texttt{\tb begin\{document\}}). On peut également "empiler" plusieurs listes en cascade, elles seront indentées au fur et à mesure.
 \end{multicols}
 
 $\rightarrow$ En LaTeX, le \texttt{\tb begin\{\}} suivi d'un \texttt{\tb end\{\}} s'appelle un environnement, cela permet de formater ce que vous allez mettre entre ces deux commandes. \textcolor{red}{Faire attention à bien mettre le \texttt{\tb begin} et le \texttt{\tb end} sinon ça ne marchera pas !} \\
-\clearpage
-\textbf{Pour les sauts de lignes et paragraphes :} \\
 
-Vous l'avez peut-être remarqué mais en LaTeX, pour revenir a la ligne vous pouvez pas juste appuyer sur la touche \texttt{Enter}, il vous faut soit laisser une ligne blanche, mettre un double backslash \texttt{\tb \tb} à la fin de votre ligne (les deux combinés donne un saut de ligne) ou utiliser la commande \texttt{\tb newline}.
-En fait le retour à la ligne vous permettra de faire un nouveau paragraphe, celui-ci sera indenté par défaut (décalé vers la droite) pour palier ce problème il suffit de mettre \texttt{\tb noindent} en début de ligne ou, pour le faire pour tout le document, mettre la commande \texttt{\tb setlength\{\tb parindent\}\{0pt\}} en début de document (avant le \texttt{\tb begin\{document\}}).\\
-Pareillement, les espaces ne se font pas en appuyant 40 fois sur la touche espace, il faut utiliser des commandes telles que \texttt{\tb quad} et \texttt{\tb qquad}.
 
 \begin{multicols}{2}
 
@@ -207,27 +215,37 @@ Pareillement, les espaces ne se font pas en appuyant 40 fois sur la touche espac
 \noindent La commande \verb?\footnote{?\emph{texte}\verb?}? crée une note en bas de page. \\
 
 
-\noindent La position du texte sur la page se modifie avec les environnements \texttt{ flushleft, center,  flushright}. C'est certainement le 2e qui vous sera le plus utile: \\
+\noindent La position du texte sur la page se modifie avec les environnements \texttt{ flushleft, center,  flushright}. C'est certainement le 2e qui vous sera le plus utile: 
+\begin{flushleft}
 \verb?\begin{center}? \\
 \emph{texte}\\
 \verb?\end{center}? 
+\end{flushleft}
 
 \end{multicols}
+
+\textbf{Pour les sauts de lignes et paragraphes :} \\
+
+Vous l'avez peut-être remarqué mais en LaTeX, pour revenir a la ligne vous ne pouvez pas juste appuyer sur la touche \texttt{Enter}, il vous faut soit mettre un double backslash \texttt{\tb \tb} à la fin de votre ligne ou utiliser la commande \texttt{\tb newline}.
+
+Vous pouvez aussi appuyer deux fois sur \texttt{Enter} mais cela créera un nouveau paragraphe, c'est à dire qu'il sera indenté par défaut (décalé vers la droite). Pour éviter cela il suffit de mettre \texttt{\tb noindent} en début de ligne ou, pour le faire pour tout le document, mettre la commande \texttt{\tb setlength\{\tb parindent\}\{0pt\}} en début de document (avant le \texttt{\tb begin\{document\}}).\\
+Si vous voulez sauter une ligne, il faut alors mettre un \texttt{\tb \tb} à la fin de votre ligne puis laisser une ligne blanche comme pour faire un nouveau paragraphe.\\
+Pareillement, les espaces ne se font pas en appuyant 40 fois sur la touche espace, il faut utiliser des commandes telles que \texttt{\tb quad} et \texttt{\tb qquad}.\\
 
 Voila pour le texte pur et simple, j'en profite pour dire qu'il ne faut pas mémoriser toutes les commandes, par exemple pour les listes, il existe plein d'options pour modifier le type de liste ou même en faire plusieurs en cascade etc\dots Mais il est inutile de retenir tout cela, une simple recherche sur internet vous donnera ce que vous voulez savoir ! Vous trouverez aussi dans ce guide une description des options les plus utiles dans la section [Section name].
 
 \subsection{Les images, tableaux et autres flottants}
 
 Un des points les plus importants dans un document est l'inclusion d'images, leur référencement et les disposer intelligemment pour ne pas perturber la lecture. Sur ce point, il peut être très compliqué de vouloir faire exactement ce que l'on a en tête en LaTeX car contrairement aux logiciels Office, on ne peut pas déplacer l'image avec la souris.
-Pas exactement certes mais pour la plupart de vos documents, LaTeX va gérer très bien tout seul votre placement d'images.\\
+Mais pour la plupart de vos documents, LaTeX va très bien gérer votre placement d'images.\\
 
-Commençons pas le plus basique, le \cmdo[scale=\textit{échelle}]{includegraphics}{\textit{chemin d'accès à l'image}}.Disons que vous ayez une image \texttt{image.png} dans le même dossier que votre fichier .tex (sur Overleaf vous pouvez directement importer vos images). Pour mettre cette image dans votre document il y a juste besoin d'écrire deux choses: \\
+Commençons par le plus basique, le \cmdoi[options]{includegraphics}{\textit{chemin d'accès à l'image}}.Disons que vous ayez une image \texttt{image.png} dans le même dossier que votre fichier .tex (sur Overleaf vous pouvez directement importer vos images avec un petit bouton en haut à gauche). Pour mettre cette image dans votre document il y a juste besoin d'écrire deux choses: \\
 
 \begin{itemize}
 	\item \cmd{usepackage}{graphicx} en début de document.
-	\item \cmdo[scale=$x$]{includegraphics}{image.png} \quad ()avec $x$ le facteur d'échelle entre 0 et 1) là où vous voulez insérer votre image.
+	\item \cmdo[scale=$x$]{includegraphics}{image.png} \quad (avec $x$ le facteur d'échelle entre 0 et 1) là où vous voulez insérer votre image.
 \end{itemize}
-\clearpage
+
 
 Bien sur cette commande fonctionne dans les environnements cités ci-dessus, par exemple si vous voulez centrer votre image: \\
 
@@ -239,13 +257,15 @@ Bien sur cette commande fonctionne dans les environnements cités ci-dessus, par
 
 \columnbreak
 
-D'autres paramètres sont possibles plutôt que le scale, voir section [Section name]
+$\rightarrow$ D'autres paramètres sont possibles plutôt que le scale, voir section [Section name]
 \end{multicols}
 
 
 \textbf{Les flottants}\\
 
-La méthode présentée ci-dessus permet de dire à LaTeX précisément où doivent être insérées vos images. Mais il peut être parfois plus judicieux de laisser LaTeX organiser vos images, pour cela on utilise des flottants (non ce n'est pas pareil que des flottants en info...). Les flottants tiennent leur nom du fait que LaTeX va les déplacer à sa convenance pour faire le meilleur document possible (selon lui libre à vous de changer ensuite).\\
+La méthode présentée ci-dessus permet de dire à LaTeX précisément où doivent être insérées vos images. Mais il peut être parfois plus judicieux de laisser LaTeX organiser vos images, pour cela on utilise des flottants (non ce n'est pas pareil que des flottants en info...). Les flottants tiennent leur nom du fait que LaTeX va les déplacer à sa convenance pour faire le meilleur document possible (selon lui, libre à vous de changer ensuite).\\
+
+\pagebreak
 
 Prenons l'exemple de l'image précédente, nous allons maintenat la mettre dans un environnement supplémentaire nommé \texttt{figure}: \\
 
@@ -255,11 +275,11 @@ Prenons l'exemple de l'image précédente, nous allons maintenat la mettre dans 
 \cmdo[scale=$x$]{includegraphics}{image.png} \\
 \cmd{caption}{légende}\\
 \cmd{end}{figure}\\
-Sans le \texttt{\tb centering}, l'image sera à gauche. 
+$\rightarrow$ Sans le \texttt{\tb centering}, l'image sera à gauche. 
 
 \columnbreak
 
-L'argument "h" indique que l'on veut que notre image soit ici ("here"), c'est à dire là où on écrit le texte. On peut aussi mettre b ou t pour "top" et "bottom" par exemple, ainsi notre image se retrouvera en haut ou en bas de la page peut importe où l'on a écrit la commande.
+$\rightarrow$ L'argument "h" indique que l'on veut que notre image soit ici ("here"), c'est à dire là où on écrit le texte. On peut aussi mettre b ou t pour "top" et "bottom" par exemple, ainsi notre image se retrouvera en haut ou en bas de la page peut importe où l'on a écrit la commande.
 \end{multicols}
 
 
@@ -278,13 +298,12 @@ $\rightarrow$ Attention cependant, LaTeX peut décider de ne pas respecter votre
 
 Un autre exemple de flottants : Les tableaux, ceux-ci ont une syntaxe bien précise mais il existe certains sites comme tablesgenerator.com qui vous simplifie la vie, vous avez juste à rentrer vos donnés et il vous génère le code automatiquement.
 
-\clearpage
 
 \subsection{Ecrire des mathématiques}
 
 On aborde ici une grosse partie de ce que vous allez faire en LaTeX, au début cela va être un peu laborieux, car vous passerez votre temps à regarder la magnifique fiche mémo faite par le KI (disponible à l'adresse latex.enpc.org) avec entre autre les commandes mathématiques. Mais ces commandes sont assez naturels et vous les mémoriserez assez vite.\\
 
-Avant toute chose, assurez vous d'avoir mis \cmd{usepackage}{amsmath} en préambule.
+$\Rightarrow$ Avant toute chose, assurez vous d'avoir mis \cmd{usepackage}{amsmath} en préambule.\\
 
 Pour écrire des maths, c'est très simple, il suffit de se placer dans un environnement mathématique, obtenu avec \texttt{\tb( \tb)} ou \texttt{\tb[ \tb]}. 
 
@@ -301,6 +320,7 @@ Ainsi le code suivant:\\
 	
 	
 \end{multicols}
+\clearpage
 Observez la différences entre les deux, le \texttt{\tb( \tb)} permet d'écrire des maths sur la même ligne que le texte en cours alors que \texttt{\tb[ \tb]} centre vos maths en sautant une ligne (\textbf{inline} vs \textbf{display} mode). Vous pouvez aussi utiliser le \$ plutôt \texttt{\tb(} et \texttt{\tb)} pour un environnement inline.
 
 Si vous voulez numéroter vos équations alors il faut utiliser l'environnement \texttt{equation}:
@@ -308,11 +328,11 @@ Si vous voulez numéroter vos équations alors il faut utiliser l'environnement 
 x^2 +y^2 = z^2
 \end{equation}
 
-Vous pouvez inclure toutes sortes de symboles dans un environnement mathématiques comme des lettres grecques $\alpha \ \beta \ \gamma$, des signes logiques et quantificateurs $\forall \ \exists \bigcup \sum$. La plupart de ces symboles sont répertoriés dans la fiche mémo distribuée lors de la formation ou disponible latex.enpc.org.\\
+Vous pouvez inclure toutes sortes de symboles dans un environnement mathématiques comme des lettres grecques $\alpha \ \beta \ \gamma$, des signes logiques et quantificateurs $\forall \ \exists \bigcup \sum$ ainsi que les notations ensemblistes $\mathbb{RQSZ}, \mathcal{CBTL}$ (requiert le package \verb|amssymb|) La plupart de ces symboles sont répertoriés dans la fiche mémo distribuée lors de la formation ou disponible latex.enpc.org.\\
 
 \textbf{Puissance et indice}\\
 
-Pour écrire des puissances et des indices à coté d'une variable ou d'un symbole, il faut utiliser \verb|^ et _|.
+Pour écrire des puissances et des indices, il faut utiliser \verb|^| et \verb|_|.
 
 \begin{multicols}{2}
 Le code suivant:\\
@@ -321,7 +341,7 @@ Le code suivant:\\
 
 En utilisant des \texttt{\{ \}} lorsque les exposants/indices ne sont pas un seul symbole:\\
 
-\verb|\[ x^2{2 \alpha} - 1 = y_{ij} + y_{ij} \]|\\
+\verb|\[ x^{2 \alpha} - 1 = y_{ij} + y_{ji} \]|\\
 
 Plus compliqué:\\
 
@@ -329,74 +349,123 @@ Plus compliqué:\\
 \verb| \prod_p \frac{1}{1 - p^{-s}} \] |
 
 \columnbreak
-
+\centering
 Devient sur le pdf:\\
 
 $$ a_1^2 + a_2^2 = a_3^2$$\\
-$$ x^2{2 \alpha} - 1 = y_{ij} + y_{ij} $$\\
+$$ x^{2 \alpha} - 1 = y_{ij} + y_{ji} $$\\
 \[ \sum_{i=1}^{\infty} \frac{1}{n^s} = \prod_p \frac{1}{1 - p^{-s}} \]
 
 \end{multicols}
 
+\textbf{Parenthèse et accolades}\\
 
+Vous aurez souvent besoin d'écrire des normes, des produits scalaires ou même d'encadrer une grosse expression entre parenthèse. LaTeX est fait pour gérer tout ca, j'ai listé ici quelques exemples:\\
+
+\begin{tabular}{lc}
+\vspace{11pt} Le code suivant: & Devient sur le pdf:\\
+	
+\verb|$\{x+y\}$| & $ \{x+y\} $ \\
+
+\verb|$ \langle x+y \rangle $| & $ \langle x+y \rangle $ \\
+
+\verb?$\| x+y \|$? & $\| x+y \|$ \\
+
+\verb|\[ F = G \left( \frac{m_1 m_2}{r^2} \right) \]| & $ F = G \left( \frac{m_1 m_2}{r^2} \right) $ \\
+
+\end{tabular}\\
+
+Les commandes \verb|\left| et \verb|\right| permettent d'ajuster la taille de vos parenthèses (marche avec \verb|[] {} ...|) à l'expression entre les deux. Ces commandes sont indissociables, l'une ne peut venir sans l'autre, ainsi si vous voulez juste mettre une parenthèse à gauche il vous faudra mettre un \verb|\right.| à la fin de votre expression et un \verb|\left(| au début.\\
+
+$\rightarrow$ Si jamais \verb|\left| et \verb|\right| ne donnent pas le résultat souhaité, vous pouvez essayer \verb|\big \Big \bigg \Bigg| (ordre de taille croissante).
 
 \newpage
 
+\textbf{Espaces en mode math}\\
+
+En mode math (c'est à dire entre \verb|$ $| ou \verb|\[ \]| ) on ne peut pas espacer les caractères, symboles ou expression en appuyant simplement sur la touche espace, LaTeX fera comme si tout fait parti d'un même mot. Pour manuellement mettre un espace dans une expression il vous faudra donc utiliser un des symboles suivants :\\
+
+\begin{center}
+	\begin{tabular}{lcr}
+	
+	Commande & Code   &  Rendu \\ 
+	
+	\verb|\!|  & \verb|$x^2\! +3x\! +2$| & $ x^2\! +3x\! +2$   \\ 
+	 
+	\verb| Espace |&\verb|$x^2   + 3 x+  2$|  & $x^2+3x+2$ \\ 
+	 
+	 \verb|\,| & \verb|$x^2\, +3x\, +2$| & $x^2\, +3x\, +2$ \\ 
+	 
+	 \verb|\:|& \verb|$x^2\: +3x\: +2$| & $x^2\: +3x\: +2$ \\ 
+	 
+	 \verb|\;|& \verb|$x^2\; +3x\; +2$| & $x^2\; +3x\; +2$ \\ 
+	 
+	 \verb|\ | & \verb|$x^2\ +3x\ +2$| &  $x^2\ +3x\ +2$ \\ 
+	 
+	\verb|\quad | & \verb|$x^2\quad +3x\quad +2$| & $x^2\quad +3x\quad +2$  \\ 
+	 
+	 \verb|\qquad | & \verb|$x^2\qquad +3x\qquad +2$| & $x^2\qquad +3x\qquad +2$  \\ 
+\end{tabular}
+\end{center} 
+
+\textbf{Equations}\\
+
+En LaTeX vous pouvez présenter vos équations de la manière suivante:\\
+
+\begin{multicols}{2}
+
+\cmd{begin}{equation} \\
+\cmd{label}{eq1} \\
+\verb|f(x) & = 3x(x+1) | \\
+\cmd{end}{equation} \\
+
+\columnbreak
+
+$\rightarrow$ Il faut utiliser \cmd{begin}{equation*} si vous ne voulez pas numéroter votre équation. Le \verb|\label| quant à lui permet de faire des références à l'équation par \verb|\ref{eq1}|.
+
+\end{multicols}
+
+Si maintenant vous voulez aligner plusieurs lignes, soit pour plusieurs équations ou juste pour développer un calcul, l'environnement \verb|align| est parfait:
+
+\begin{multicols}{2}
+
+\cmd{begin}{align} \quad (Ou \verb|align*| )\\
+\verb|2x - 5y &= 8 \\| \\
+\verb|3x +9y &= -12| \\
+\cmd{end}{align} \\
+
+\columnbreak
+
+$\rightarrow$ Le \verb|&| sert à aligner l'équation verticalement, on le met généralement au niveau du signe égal, à noter que vous pouvez en mettre plusieurs sur une même ligne.
+
+\end{multicols} 
+
+Voila pour le principal, il y a bien sur une multitude d'autres environnement qui permettent d'augmenter la complexité, vous trouverez dans la section [Section name] une présentations de ces fonctionnalités. \\
+J'aimerai ici finir par quelque chose qui vous sera sûrement utile : \textbf{Définir une fonction en mathématiques}.
+\begin{multicols}{2}
+	
+\verb|\[ f: \left | \\
+\verb|\begin{array}{rcl}| \\
+\verb|\mathbb{R} & \longrightarrow & \mathbb{R} \\|	\\
+\verb|x & \longmapsto & \begin{cases} \frac{x^2}{2} &| \\ \verb|\textrm{si } x > 0 \\| \\
+\verb|\frac{\pi^2 + \frac{1}{x}}{2} & \textrm{si } x < 0 | \\ 
+\verb|\end{cases}| \\
+\verb|\end{array} \right. \]|
+	
+\columnbreak	
+
+\[
+f: \left|
+\begin{array}{rcl}
+	\mathbb{R} & \longrightarrow & \mathbb{R} \\
+	x & \longmapsto & \begin{cases} x^2/2 & \textrm{si } x > 0 \\
+	\frac{\pi^2 + \frac{1}{x}}{2} & \textrm{si } x < 0 \end{cases}
+\end{array} \right. \]
+\end{multicols}
+
+\clearpage
 
 
-\subsection{Complément}
-
-
-\subsubsection{Inclure du code}
-
-
-\noindent Il est également possible d'inclure du code dans un fichier \LaTeX \ grâce au paquet \verb?\usepackage{listings}? et aux commandes suivantes : \\
-
-\noindent \verb?\lstset{language=? \emph{nom de langage} \verb?}? \\
-\verb?\begin{lstlisting}? \\
-\emph{Le code, tel qu'il serait écrit dans un éditeur de texte classique. Exemple de code Python :} \\
-for i in range (0: N) : \\
-\indent X[i] = methode(X[i - 1]) \\
-\verb?\end{lstlisting}? \\
-
-\noindent Cela va inclure le code ainsi :
-
-\lstset{language=c++}
-\begin{lstlisting}
-
-// New function.
-int function(int x) {
-    return x * 10;
-}
-
-for (int i = 0; i < 10; i++) {
-	int j = function(i);
-	std::cout << j << std::endl;
-}
-
-\end{lstlisting}
-
-\noindent Il existe de nombreuses options pour ajouter la coloration syntaxique, encadrer le code, numéroter les lignes, mais les liens fournis en \ref{lien} expliquent tous ces détails.
-
-
-\subsubsection{Liens utiles}\label{lien}
-
-
-\noindent Voici quelque lien utile pour chercher des commandes, des options ou des précisions supplémentaires :
-\begin{itemize}
-	\item \url{https://www.google.com}
-	\item \url{tex.stackexchange.com}
-	\item \url{https://fr.wikibooks.org/wiki/LaTeX}
-	\item \url{https://openclassrooms.com/courses/redigez-des-documents-de-qualite-avec-latex}
-	\item \url{https://fr.sharelatex.com}
-	\item \url{https://upont.enpc.fr/ponthub/autres}
-\end{itemize}
-
-
-\subsubsection{Logiciel conseillé}
-
-
-\noindent ShareLaTeX est une solution pratique pour s'éviter l'installation de \LaTeX \ et faire des projets à plusieurs\footnote{Deux maximum sur la version gratuite.}, néanmoins, il peut être utile d'avoir \LaTeX \ sur son propre ordinateur et donc d'avoir un logiciel de traitement de texte adapté : Sublime Text \footnote{Sublime Text doit être configuré pour gérer \LaTeX.} et TexMaker sont de bons logiciel testés et approuvés par le KI'018.
 
 \section{Formatage de texte}
 
