@@ -1,4 +1,4 @@
-\documentclass[10pt]{article}				% autres choix : book, report
+\documentclass[11pt]{article}				% autres choix : book, report
 
 \usepackage[utf8]{inputenc}					% gestion des accents (source)
 \usepackage[T1]{fontenc}					% gestion des accents (PDF)
@@ -12,8 +12,11 @@
 \usepackage{csquotes}
 \usepackage{empheq}							% pour encadrer.
 
+\usepackage{biblatex}
+\addbibresource{exemple.bib}
+
 \usepackage{geometry}						% gestion des marges
-\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2.5cm}
+\geometry{top=1.5cm, bottom=2cm, left=2.5cm, right=2.5cm}
 
 \usepackage{booktabs}
 \usepackage{graphicx}						% gestion des images
@@ -125,7 +128,7 @@ Vous trouverez dans le guide complet des explications pour ceux qui voudraient a
 ~\\ 
 \textcolor{red}{\cmd{begin}{document}}\\
 \texttt{\tb maketitle} \\
-\texttt{\tb taleofcontents} \\
+\texttt{\tb tableofcontents} \\
 ~\\
 \cmdi{section}{titre de la section} \quad (\texttt{\tb section*} pour éviter la numérotation)	 \\
 \cmdi{subsection}{titre de la sous-section} \\
@@ -376,7 +379,7 @@ Vous aurez souvent besoin d'écrire des normes, des produits scalaires ou même 
 
 Les commandes \verb|\left| et \verb|\right| permettent d'ajuster la taille de vos parenthèses (marche avec \verb|[] {} ...|) à l'expression entre les deux. Ces commandes sont indissociables, l'une ne peut venir sans l'autre, ainsi si vous voulez juste mettre une parenthèse à gauche il vous faudra mettre un \verb|\right.| à la fin de votre expression et un \verb|\left(| au début.\\
 
-$\rightarrow$ Si jamais \verb|\left| et \verb|\right| ne donnent pas le résultat souhaité, vous pouvez essayer \verb|\big \Big \bigg \Bigg| (ordre de taille croissante).
+$\rightarrow$ Si jamais \verb|\left| et \verb|\right| ne donnent pas le résultat souhaité, vous pouvez essayer \verb|\big \Big \bigg \Bigg| (ordre de taille croissante).\\
 
 
 \textbf{Espaces en mode math}\\
@@ -408,19 +411,38 @@ En mode math (c'est à dire entre \verb|$ $| ou \verb|\[ \]| ) on ne peut pas es
 
 \textbf{Equations}\\
 
-En LaTeX vous pouvez présenter vos équations de la manière suivante:\\
+En LaTeX vous pouvez présenter vos équations de la manière suivante:
 
 \begin{multicols}{2}
 
 \cmd{begin}{equation} \\
 \cmd{label}{eq1} \\
-\verb|f(x) & = 3x(x+1) | \\
-\cmd{end}{equation} \\
+\verb|f(x)  = 3x(x+1) | \\
+\cmd{end}{equation} 
 
 \columnbreak
 
 $\rightarrow$ Il faut utiliser \cmd{begin}{equation*} si vous ne voulez pas numéroter votre équation. Le \verb|\label| quant à lui permet de faire des références à l'équation par \verb|\ref{eq1}|.
 
+\end{multicols}
+Si vous voulez couper votre équation sur plusieurs lignes, il faut utiliser l'environnement \verb|split|.
+\begin{multicols}{2}
+\cmd{begin}{equation} \cmd{label}{eq1} \\
+\cmd{begin}{split} \\
+\verb|f(x) & = 3x(x+1) \\ | \\
+\verb|& = 3x^2 + 3x | \\
+\cmd{end}{split} \\
+\cmd{end}{equation} 
+
+\columnbreak
+
+\begin{equation} \label{eq1}
+\begin{split}
+f(x) & = 3x(x+1) \\
+& = 3x^2 +3x
+\end{split}
+\end{equation}
+	
 \end{multicols}
 
 Si maintenant vous voulez aligner plusieurs lignes, soit pour plusieurs équations ou juste pour développer un calcul, l'environnement \verb|align| est parfait:
@@ -461,6 +483,48 @@ f: \left|
 \end{array} \right. \]
 \end{multicols}
 
+Bien sur cet exemple est un degré de complexité au dessus de ce que vous pourriez être amenés à faire, mais il vous suffit de le modifier à votre convenance.
+
+
 \clearpage
+
+\subsection*{Faire une bibliographie}
+
+Cette section est un peu plus technique car elle requiert l'usage d'un fichier tiers qui vous permettra de faire votre bibliographie. En premier lieu, il vous faut le package \verb|biblatex|, importez-le, puis suivez les étapes suivantes :
+
+\begin{itemize}
+	\item \underline{Étape 1 :} Sur Overleaf, cliquez sur le bouton "New File" en haut à gauche de l'écran (sous le bouton menu). Écrivez "exemple.bib" dans la zone de texte puis créez votre fichier.\\
+	
+	\item \underline{Étape 2 :} Ensuite dans votre fichier .tex, il faut ajouter la ligne \cmd{addbibresource}{exemple.bib} en dessous de votre \cmd{usepackage}{biblatex}.\\
+	
+	\item \underline{Étape 3 :} Dans votre fichier "exemple.bib", copiez-collez le texte suivant :
+	\begin{flushleft}
+		\verb|@book{guidelatex,| \\
+		\qquad	\verb|author = {Le KI'022},| \\
+		\qquad	\verb|title = {Guide d'utilisation de \LaTeX},| \\
+		\qquad   \verb|year = {2020},| \\
+		\verb|}| \\
+		
+	\end{flushleft}
+	
+	\item \underline{Étape 4 :} Maintenant, il vous faut écrire un petit texte pour citer le guide, par exemple:
+	
+	"J'utilise le guide LaTeX du KI \cmd{cite}{guidelatex} pour pouvoir écrire mes rapports en première année des Ponts."
+	
+	Puis ajoutez simplement la commande \verb|\printbibliography| à la fin de votre document.\\
+	
+	\item \underline{Bonus :} Vous pouvez écrire \verb|\printbibliography[heading=bibintoc, title=Bibliographie]| pour ajouter votre bibliographie à la table des matières (nécessite le \verb|\tableofcontents|).
+	
+\end{itemize}
+\begin{figure}[h!]
+	\centering
+	\subfloat[Sans la table des matières]{\includegraphics[width=0.5\textwidth]{ressources/testbib1.png}} \hfill
+	\subfloat[Avec la table des matières]{\includegraphics[width=0.5\textwidth]{ressources/testbib2.png}}
+
+\end{figure}
+
+$\rightarrow$ Voila la marche à suivre, en fonction des œuvres à citer, il vous faudra juste changer l'étape 3. l'argument du \verb|\cite| est le premier argument de \verb|@book{...}|.
+
+
 
 \end{document}
