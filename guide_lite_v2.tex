@@ -104,8 +104,8 @@ Je vous conseille de souvent compiler votre code pour vous rendre compte de ce q
 
 
 
-Un autre avantage d'Overleaf est qu'il vous permettra de travailler en simultané sur un même document, chose impossible sur un éditeur classique.
-Vous trouverez dans le guide complet des explications pour ceux qui voudraient avoir une distribution de LaTeX sur leur PC (MAC Linux et Window).
+Un autre avantage d'Overleaf est qu'il vous permettra de travailler en collaboration sur un même document, chose impossible sur un éditeur classique.
+Vous trouverez dans le guide complet des explications pour ceux qui voudraient avoir une distribution de LaTeX sur leur PC (MAC Linux et Windows).
 
 \newpage
 
@@ -269,7 +269,7 @@ La méthode présentée ci-dessus permet de dire à LaTeX précisément où doiv
 
 
 
-Prenons l'exemple de l'image précédente, nous allons maintenat la mettre dans un environnement supplémentaire nommé \texttt{figure}: \\
+Prenons l'exemple de l'image précédente, nous allons maintenant la mettre dans un environnement supplémentaire nommé \texttt{figure}: \\
 
 \begin{multicols}{2}
 \cmd{begin}{figure}\texttt{[}h\texttt{]}\\
@@ -524,6 +524,66 @@ Cette section est un peu plus technique car elle requiert l'usage d'un fichier t
 \end{figure}
 
 $\rightarrow$ Voila la marche à suivre, en fonction des œuvres à citer, il vous faudra juste changer l'étape 3. l'argument du \verb|\cite| est le premier argument de \verb|@book{...}|.
+
+\newpage
+
+\subsection*{Créer vos propres commandes}
+
+Cette section n'apportera rien de plus à vos documents LaTeX, elle vous fera simplement gagner du temps à l'écriture. Mais lorsque vous devrez écrire des rapports de TP en AnaCS par exemple, il vous faudra écrire beaucoup de normes, intégrales et autres expression qui partagent beaucoup de caractéristiques communes.\\
+
+Voyons un exemple pour illustrer mes propos:\\
+
+
+\begin{multicols}{2}
+	\begin{tabular}{l|c}
+Code	&  PDF \\ 
+\verb? $ \| u \|_{\mathcal{H}^1_0 ? &  \( \| u \|_{\mathcal{H}^1_0 \left( \Omega \right) } \)  \\
+	\verb? \left( \Omega \right) $?   &  
+\end{tabular}
+
+\columnbreak
+
+$\rightarrow$ L'idéal serait d'avoir une commande \verb|\norme{u}| qui donnerait le même rendu que le code de gauche.
+\end{multicols} 
+
+Heureusement, nous pouvons en LaTeX définir nos propres commandes de façon assez simple. Avant de s'attaquer à l'exemple ci-dessus, voyons en un plus simple.
+
+Par exemple,la commande \cmd{mathbb}{R} peut s'avérer redondante lorsque l'on doit faire beaucoup intervenir ce symbole ($ \mathbb{R} $).
+
+Pour cela, il vous suffit d'écrire en préambule de votre document (avant le \cmd{begin}{document}) : 
+\begin{multicols}{2}
+
+\begin{center}
+	\cmd{newcommand\{\tb R\}}{\tb mathbb\{R\}}.
+\end{center}
+ 
+\columnbreak
+
+$\rightarrow$ Le \verb|\R| est le nom de votre commande tandis que le \cmd{mathbb}{R} est ce que votre commande va effectuer. Voila, maintenant, pour écrire $ \mathbb{R} $ il vous suffira d'écrire \verb|\R|.\\
+\end{multicols}
+
+Bien maintenant il faudrait que votre commande puisse accepter des paramètres, c'est à dire de la forme \cmdi{macommande}{argument}. Il faut donc modifier la commande précédente ainsi :
+
+\begin{multicols}{2}
+	
+	\begin{center}
+		\cmdo[1]{newcommand\{\tb bb\}}{\tb mathbb\{\#1\}}
+	\end{center}
+	
+	\columnbreak
+	
+	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande. A noter que si le nombre d'argument est supérieur à 1, vos devez y faire référence par \verb|#1, #2, ...| 
+\end{multicols}
+
+Voilà, nous pouvons maintenant écrire la commande vue au début de la section, nous voulons un seul paramètre, la fonction \texttt{u}, tout le reste doit être fixé:
+\newcommand{\norme}[1]{\|#1\|_{\mathcal{H}^1_0\left(\Omega\right)}}
+\begin{center}
+	\cmdo[1]{newcommand\{\tb norme\}}{\tb |\#1\tb|{\_}\{\cmd{mathcal}{H}\textasciicircum 1\_0 \tb left( \tb Omega \tb right)\}} \\
+\end{center}
+
+
+
+Ainsi, si vous êtes dans un environnement math, la commande \cmd{norme}{u} vous produira $\norme{u}$.
 
 
 
