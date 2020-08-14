@@ -71,11 +71,11 @@
 
 \section*{Préambule}
 
-Ce document a pour but de présenter les fonctionnalités de base et les plus utiles de LaTeX, ce langage étant devenu la norme pour produire des documents scientifiques aujourd'hui. Si vous ne connaissez absolument rien à ce langage pas de panique ! Ce guide est fait pour vous, il vous donnera les bases qui vous permettrons d'écrire tous vos rapport et autres pendant vos années aux Ponts et Chaussées. \\
+Ce document a pour but de présenter les fonctionnalités de base et les plus utiles de LaTeX, ce langage étant devenu la norme pour produire des documents scientifiques aujourd'hui. Si vous ne connaissez absolument rien à ce langage pas de panique ! Ce guide est fait pour vous, il vous donnera les bases qui vous permettront d'écrire tous vos rapports et autres pendant vos années aux Ponts et Chaussées. \\
 
-Mais d'abord je vais essayer de répondre à la question "A quoi sert {\LaTeX} ?" où plutôt: "Pourquoi me donner du mal à apprendre un langage compliqué si je peux faire plus ou moins la même chose avec Word ?". Le premier truc qu'on vous dira, c'est que LaTeX permet de faire des jolies maths, et c'est probablement ce qui vous servira le plus mais il y a d'autre manières de répondre à cette question:
+Mais d'abord je vais essayer de répondre à la question "A quoi sert {\LaTeX} ?" où plutôt: "Pourquoi me donner du mal à apprendre un langage compliqué si je peux faire plus ou moins la même chose avec Word ?". Le premier truc qu'on vous dira, c'est que LaTeX permet de faire des jolies maths, et c'est probablement ce qui vous servira le plus mais il y a d'autres manières de répondre à cette question:
 \begin{itemize}
-	\item LaTeX vous permets de vous concentrer uniquement sur le \textbf{contenu} de votre document et non sur la forme qui est gérée automatiquement.
+	\item LaTeX vous permet de vous concentrer uniquement sur le \textbf{contenu} de votre document et non sur la forme qui est gérée automatiquement.
 	\item LaTeX demande un certain temps d'adaptation, surtout si vous êtes habitués à Word mais les documents produits sont de plus grande qualité et font plus "scientifique".
 	\item Sans parler des maths, LaTeX procure une grande facilité pour ce qui est de référencer ses figures, ses graphiques, faire une bibliographie ou une table des matières. Il sera plus facile et surtout plus rapide de produire un rapport scientifique avec LaTeX car tout ce que j'ai cité se fera (presque) tout seul.
 \end{itemize}  
@@ -89,7 +89,7 @@ Bonne lecture !
 
 \subsection*{L'installation}
 
-Avant d'écrire un document LaTeX, il vous faut une distribution de LaTeX. Le plus simple, rapide et efficace est d'utiliser le site \textit{Overleaf}. Il suffit de se connecter et de créer un nouveau document et\dots c'est tout. Il n'y a pas plus simple, le seul désavantage \footnote{Il y en a d'autres, mais peu conséquents par rapport à la facilité d'utilisation procurée par Overleaf} étant que vous allez avoir besoin d'une connexion internet, ce qui sera rarement un soucis.\\
+Avant d'écrire un document LaTeX, il vous faut une distribution de LaTeX. Le plus simple, rapide et efficace est d'utiliser le site \textit{Overleaf}. Il suffit de se connecter et de créer un nouveau document et\dots \ c'est tout. Il n'y a pas plus simple, le seul désavantage \footnote{Il y en a d'autres, mais peu conséquents par rapport à la facilité d'utilisation procurée par Overleaf} étant que vous allez avoir besoin d'une connexion Internet, ce qui sera rarement un soucis.\\
 Pour commencer un nouveau document il vous suffit de cliquer sur "Nouveau projet" $\longrightarrow$ "Projet vide" et vous devriez tomber sur quelque chose qui ressemble à l'image ci-dessous.\\
 \begin{figure}[h!]
 	\centering
@@ -105,7 +105,7 @@ Je vous conseille de souvent compiler votre code pour vous rendre compte de ce q
 
 
 Un autre avantage d'Overleaf est qu'il vous permettra de travailler en collaboration sur un même document, chose impossible sur un éditeur classique.
-Vous trouverez dans le guide complet des explications pour ceux qui voudraient avoir une distribution de LaTeX sur leur PC (MAC Linux et Windows).
+Vous trouverez dans le guide complet des explications pour ceux qui voudraient avoir une distribution de LaTeX sur leur PC (Mac Linux et Windows).
 
 \newpage
 
@@ -139,7 +139,7 @@ Vous trouverez dans le guide complet des explications pour ceux qui voudraient a
 ~\\
 \textcolor{red}{\texttt{\tb end\{document\}}} \\
 
-Vous pouvez déjà essayer de reproduire ce schéma (sans le \texttt{\tb usepackage} en noir pour le moment) avec \texttt{\tb documentclass[11pt]\{article\}},remplacez juste ce qui est en italique par le titre, auteur, date, etc\dots, appuyez sur Ctrl+Enter et vous devriez avoir un document qui ressemble à ceci:
+Vous pouvez déjà essayer de reproduire ce schéma (sans le \texttt{\tb usepackage} en noir pour le moment) avec \texttt{\tb documentclass[11pt]\{article\}}, remplacez juste ce qui est en italique par le titre, auteur, date\dots, appuyez sur Ctrl+Enter et vous devriez avoir un document qui ressemble à ceci:
 \begin{figure}[h!]
 \begin{center}
 	\includegraphics[scale=0.4]{ressources/frover.png}
@@ -234,7 +234,7 @@ Vous pouvez aussi appuyer deux fois sur \texttt{Enter} mais cela créera un nouv
 Si vous voulez sauter une ligne, il faut alors mettre un \texttt{\tb \tb} à la fin de votre ligne puis laisser une ligne blanche comme pour faire un nouveau paragraphe.\\
 Pareillement, les espaces ne se font pas en appuyant 40 fois sur la touche espace, il faut utiliser des commandes telles que \texttt{\tb quad} et \texttt{\tb qquad}.\\
 
-Voila pour le texte pur et simple, j'en profite pour dire qu'il ne faut pas mémoriser toutes les commandes, par exemple pour les listes, il existe plein d'options pour modifier le type de liste ou même en faire plusieurs en cascade etc\dots Mais il est inutile de retenir tout cela, une simple recherche sur internet vous donnera ce que vous voulez savoir ! 
+Voilà pour le texte pur et simple, j'en profite pour dire qu'il ne faut pas mémoriser toutes les commandes, par exemple pour les listes, il existe plein d'options pour modifier le type de liste ou même en faire plusieurs en cascade \dots \ Mais il est inutile de retenir tout cela, une simple recherche sur internet vous donnera ce que vous voulez savoir ! 
 
 \subsection*{Les images, tableaux et autres flottants}
 
@@ -303,7 +303,7 @@ Un autre exemple de flottants : Les tableaux, ceux-ci ont une syntaxe bien préc
 
 \subsection*{Ecrire des mathématiques}
 
-On aborde ici une grosse partie de ce que vous allez faire en LaTeX, au début cela va être un peu laborieux, car vous passerez votre temps à regarder la magnifique fiche mémo faite par le KI (disponible à l'adresse latex.enpc.org) avec entre autre les commandes mathématiques. Mais ces commandes sont assez naturels et vous les mémoriserez assez vite.\\
+On aborde ici une grosse partie de ce que vous allez faire en LaTeX, au début cela va être un peu laborieux, car vous passerez votre temps à regarder la magnifique fiche mémo faite par le KI (disponible \href{http://latex.enpc.org}{ici}) avec entre autre les commandes mathématiques. Mais ces commandes sont assez naturelles et vous les mémoriserez assez vite.\\
 
 $\Rightarrow$ Avant toute chose, assurez vous d'avoir mis \cmd{usepackage}{amsmath} en préambule.\\
 
@@ -330,7 +330,7 @@ Si vous voulez numéroter vos équations alors il faut utiliser l'environnement 
 x^2 +y^2 = z^2
 \end{equation}
 
-Vous pouvez inclure toutes sortes de symboles dans un environnement mathématiques comme des lettres grecques $\alpha \ \beta \ \gamma$, des signes logiques et quantificateurs $\forall \ \exists \bigcup \sum$ ainsi que les notations ensemblistes $\mathbb{RQSZ}, \mathcal{CBTL}$ (requiert le package \verb|amssymb|) La plupart de ces symboles sont répertoriés dans la fiche mémo distribuée lors de la formation ou disponible latex.enpc.org.\\
+Vous pouvez inclure toutes sortes de symboles dans un environnement mathématique comme des lettres grecques $\alpha \ \beta \ \gamma$, des signes logiques et quantificateurs $\forall \ \exists \bigcup \sum$ ainsi que les notations ensemblistes $\mathbb{RQSZ}, \mathcal{CBTL}$ (requiert le package \verb|amssymb|) La plupart de ces symboles sont répertoriés dans la fiche mémo distribuée lors de la formation ou disponible sur \href{http://latex.enpc.org}{ce site}.\\
 
 \textbf{Puissance et indice}\\
 
@@ -360,7 +360,7 @@ $$ x^{2 \alpha} - 1 = y_{ij} + y_{ji} $$\\
 
 \end{multicols}
 
-\textbf{Parenthèse et accolades}\\
+\textbf{Parenthèses et accolades}\\
 
 Vous aurez souvent besoin d'écrire des normes, des produits scalaires ou même d'encadrer une grosse expression entre parenthèse. LaTeX est fait pour gérer tout ca, j'ai listé ici quelques exemples:\\
 
@@ -384,7 +384,7 @@ $\rightarrow$ Si jamais \verb|\left| et \verb|\right| ne donnent pas le résulta
 
 \textbf{Espaces en mode math}\\
 
-En mode math (c'est à dire entre \verb|$ $| ou \verb|\[ \]| ) on ne peut pas espacer les caractères, symboles ou expression en appuyant simplement sur la touche espace, LaTeX fera comme si tout fait parti d'un même mot. Pour manuellement mettre un espace dans une expression il vous faudra donc utiliser un des symboles suivants :\\
+En mode math (c'est à dire entre \verb|$ $| ou \verb|\[ \]| ) on ne peut pas espacer les caractères, symboles ou expression en appuyant simplement sur la touche espace, LaTeX fera comme si tout fait partie d'un même mot. Pour manuellement mettre un espace dans une expression il vous faudra donc utiliser un des symboles suivants :\\
 
 \begin{center}
 	\begin{tabular}{lcr}
@@ -460,8 +460,8 @@ $\rightarrow$ Le \verb|&| sert à aligner l'équation verticalement, on le met g
 
 \end{multicols} 
 
-Voila pour le principal, il y a bien sur une multitude d'autres environnement qui permettent d'augmenter la complexité, vous trouverez dans le guide complet une présentation de ces fonctionnalités. \\
-J'aimerai ici finir par quelque chose qui vous sera sûrement utile : \textbf{Définir une fonction en mathématiques}.
+Voilà pour le principal, il y a bien sur une multitude d'autres environnement qui permettent d'augmenter la complexité, vous trouverez dans le guide complet une présentation de ces fonctionnalités. \\
+J'aimerais ici finir par quelque chose qui vous sera sûrement utile : \textbf{définir une fonction en mathématiques}.
 \begin{multicols}{2}
 	
 \verb|\[ f: \left | \\
@@ -509,7 +509,7 @@ Cette section est un peu plus technique car elle requiert l'usage d'un fichier t
 	
 	\item \underline{Étape 4 :} Maintenant, il vous faut écrire un petit texte pour citer le guide, par exemple:
 	
-	"J'utilise le guide LaTeX du KI \cmd{cite}{guidelatex} pour pouvoir écrire mes rapports en première année des Ponts."
+	"J'utilise le guide LaTeX du KI \cmd{cite}{guidelatex}\footnote{L'argument du \texttt{\tb cite} est le premier argument de \texttt{\tb @book\{...\}}.} pour pouvoir écrire mes rapports en première année des Ponts."
 	
 	Puis ajoutez simplement la commande \verb|\printbibliography| à la fin de votre document.\\
 	
@@ -523,13 +523,13 @@ Cette section est un peu plus technique car elle requiert l'usage d'un fichier t
 
 \end{figure}
 
-$\rightarrow$ Voila la marche à suivre, en fonction des œuvres à citer, il vous faudra juste changer l'étape 3. l'argument du \verb|\cite| est le premier argument de \verb|@book{...}|.
+$\rightarrow$ Voila la marche à suivre, en fonction des œuvres à citer, il vous faudra juste changer l'étape 3 en mettant d'autres œuvres comme des articles \verb|@article|, des thèses \verb|@thesis|,... .
 
 \newpage
 
 \subsection*{Créer vos propres commandes}
 
-Cette section n'apportera rien de plus à vos documents LaTeX, elle vous fera simplement gagner du temps à l'écriture. Mais lorsque vous devrez écrire des rapports de TP en AnaCS par exemple, il vous faudra écrire beaucoup de normes, intégrales et autres expression qui partagent beaucoup de caractéristiques communes.\\
+Cette section n'apportera rien de plus à vos documents LaTeX, elle vous fera simplement gagner du temps à l'écriture. Mais lorsque vous devrez écrire des rapports de TP en AnaCS par exemple, il vous faudra écrire beaucoup de normes, intégrales et autres expressions qui partagent beaucoup de caractéristiques communes.\\
 
 Voyons un exemple pour illustrer mes propos:\\
 
@@ -546,9 +546,9 @@ Code	&  PDF \\
 $\rightarrow$ L'idéal serait d'avoir une commande \verb|\norme{u}| qui donnerait le même rendu que le code de gauche.
 \end{multicols} 
 
-Heureusement, nous pouvons en LaTeX définir nos propres commandes de façon assez simple. Avant de s'attaquer à l'exemple ci-dessus, voyons en un plus simple.
+Heureusement, nous pouvons en LaTeX définir nos propres commandes de façon assez simple. Avant de s'attaquer à l'exemple ci-dessus, voyons-en un plus simple.
 
-Par exemple,la commande \cmd{mathbb}{R} peut s'avérer redondante lorsque l'on doit faire beaucoup intervenir ce symbole ($ \mathbb{R} $).
+Par exemple, la commande \cmd{mathbb}{R} peut s'avérer redondante lorsque l'on doit faire beaucoup intervenir ce symbole ($ \mathbb{R} $).
 
 Pour cela, il vous suffit d'écrire en préambule de votre document (avant le \cmd{begin}{document}) : 
 \begin{multicols}{2}
@@ -562,7 +562,7 @@ Pour cela, il vous suffit d'écrire en préambule de votre document (avant le \c
 $\rightarrow$ Le \verb|\R| est le nom de votre commande tandis que le \cmd{mathbb}{R} est ce que votre commande va effectuer. Voila, maintenant, pour écrire $ \mathbb{R} $ il vous suffira d'écrire \verb|\R|.\\
 \end{multicols}
 
-Bien maintenant il faudrait que votre commande puisse accepter des paramètres, c'est à dire de la forme \cmdi{macommande}{argument}. Il faut donc modifier la commande précédente ainsi :
+Maintenant il faudrait que votre commande puisse accepter des paramètres, c'est à dire de la forme \cmdi{macommande}{argument}. Il faut donc modifier la commande précédente ainsi :
 
 \begin{multicols}{2}
 	
@@ -572,7 +572,7 @@ Bien maintenant il faudrait que votre commande puisse accepter des paramètres, 
 	
 	\columnbreak
 	
-	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande. A noter que si le nombre d'argument est supérieur à 1, vos devez y faire référence par \verb|#1, #2, ...| 
+	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande. A noter que si le nombre d'arguments est supérieur à 1, vos devez y faire référence par \verb|#1, #2, ...| 
 \end{multicols}
 
 Voilà, nous pouvons maintenant écrire la commande vue au début de la section, nous voulons un seul paramètre, la fonction \texttt{u}, tout le reste doit être fixé:
@@ -583,7 +583,13 @@ Voilà, nous pouvons maintenant écrire la commande vue au début de la section,
 
 
 
-Ainsi, si vous êtes dans un environnement math, la commande \cmd{norme}{u} vous produira $\norme{u}$.
+Ainsi, si vous êtes dans un environnement math, la commande \cmd{norme}{u} vous produira $\norme{u}$.\\
+
+\textbf{Conclusion}\\
+
+Merci d'avoir lu ce guide, j'espère qu'il vous aura été utile et que les explications étaient assez claires. Si jamais vous voulez en savoir plus, sur n'importe quel aspect de ce qui a été présenté ici, je vous invite à consulter le guide complet disponible sur \href{http://latex.enpc.org}{ce site}.
+
+N'hésitez pas à me faire part de vos remarques ou commentaires, soit par mail à l'adresse \\ \texttt{pierre-louis.ruhlmann@eleves.enpc.fr} ou en contactant le KI par Facebook ou sur \href{http://clubinfo.enpc.org}{son site}.
 
 
 
