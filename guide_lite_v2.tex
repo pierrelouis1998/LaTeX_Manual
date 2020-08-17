@@ -7,7 +7,7 @@
 \usepackage{textcomp}						% caractères additionnels
 \usepackage{mathtools,amssymb,amsthm}
 %\usepackage{mathabx}		% packages de l'AMS + mathtools
-\usepackage{lmodern}						% police de caractère
+%\usepackage{lmodern}						% police de caractère
 \usepackage{stmaryrd}						% symboles supplémentaires
 \usepackage{csquotes}
 \usepackage{empheq}							% pour encadrer.
@@ -33,9 +33,10 @@
 \usepackage{fancyhdr}						% pour les en-têtes
 \usepackage{wrapfig}
 
-\usepackage{tikz, pgf}
-\usepackage{tikz-3dplot}
-\usepackage{tkz-euclide}
+\usepackage{tikz}
+\tikzset{code/.style={draw=green!50!black, rounded corners,fill=green!5!, font=\small, text width = 0.8\textwidth}}
+
+
 \usepackage{pgfplots}						% tracer des courbes
 \usepackage{pgfplotstable}
 
@@ -234,7 +235,7 @@ Vous pouvez aussi appuyer deux fois sur \texttt{Enter} mais cela créera un nouv
 Si vous voulez sauter une ligne, il faut alors mettre un \texttt{\tb \tb} à la fin de votre ligne puis laisser une ligne blanche comme pour faire un nouveau paragraphe.\\
 Pareillement, les espaces ne se font pas en appuyant 40 fois sur la touche espace, il faut utiliser des commandes telles que \texttt{\tb quad} et \texttt{\tb qquad}.\\
 
-Voilà pour le texte pur et simple, j'en profite pour dire qu'il ne faut pas mémoriser toutes les commandes, par exemple pour les listes, il existe plein d'options pour modifier le type de liste ou même en faire plusieurs en cascade \dots \ Mais il est inutile de retenir tout cela, une simple recherche sur internet vous donnera ce que vous voulez savoir ! 
+$\rightarrow$ Je vous conseil d'utiliser le package \texttt{geometry} suivi de la commande\\ \verb|\geometry{top=1.5cm, bottom=2cm, left=2.5cm, right=2.5cm}|, cela vous permettra de gérer vos marges en faisant varier les valeurs \texttt{top, bottom, left} ou \texttt{right}.
 
 \subsection*{Les images, tableaux et autres flottants}
 
@@ -323,7 +324,7 @@ Ainsi le code suivant:\\
 	
 \end{multicols}
 
-Observez la différences entre les deux, le \texttt{\tb( \tb)} permet d'écrire des maths sur la même ligne que le texte en cours alors que \texttt{\tb[ \tb]} centre vos maths en sautant une ligne (\textbf{inline} vs \textbf{display} mode). Vous pouvez aussi utiliser le \$ plutôt \texttt{\tb(} et \texttt{\tb)} pour un environnement inline.
+Observez la différences entre les deux, le \texttt{\tb( \tb)} permet d'écrire des maths sur la même ligne que le texte en cours alors que \texttt{\tb[ \tb]} centre vos maths en sautant une ligne (\textbf{inline} vs \textbf{display} mode). Vous pouvez aussi utiliser le \$ plutôt que \texttt{\tb(} et \texttt{\tb)} pour un environnement inline.
 
 Si vous voulez numéroter vos équations alors il faut utiliser l'environnement \texttt{equation}:
 \begin{equation}
@@ -500,9 +501,9 @@ Cette section est un peu plus technique car elle requiert l'usage d'un fichier t
 	\item \underline{Étape 3 :} Dans votre fichier "exemple.bib", copiez-collez le texte suivant :
 	\begin{flushleft}
 		\verb|@book{guidelatex,| \\
-		\qquad	\verb|author = {Le KI'022},| \\
-		\qquad	\verb|title = {Guide d'utilisation de \LaTeX},| \\
-		\qquad   \verb|year = {2020},| \\
+		\qquad \quad	\verb|author = {Le KI'022},| \\
+		\qquad	\quad \verb|title = {Guide d'utilisation de \LaTeX},| \\
+		\qquad  \quad \verb|year = {2020},| \\
 		\verb|}| \\
 		
 	\end{flushleft}
@@ -572,7 +573,7 @@ Maintenant il faudrait que votre commande puisse accepter des paramètres, c'est
 	
 	\columnbreak
 	
-	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande. A noter que si le nombre d'arguments est supérieur à 1, vos devez y faire référence par \verb|#1, #2, ...| 
+	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande, le \verb|#1| sera remplacé par le texte que vous mettrez dans \verb|\bb{...}|\footnote{Si le nombre d'arguments est supérieur à 1, vous y ferez référence avec \texttt{\#1, \#2,}etc . Et pour utiliser votre commande vous devrez écrire \texttt{\tb macommande}\{\textit{argument 1}\}\{\textit{argument 2}\}...\{\textit{argument n}\}.}.
 \end{multicols}
 
 Voilà, nous pouvons maintenant écrire la commande vue au début de la section, nous voulons un seul paramètre, la fonction \texttt{u}, tout le reste doit être fixé:
