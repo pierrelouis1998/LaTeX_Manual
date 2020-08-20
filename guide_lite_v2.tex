@@ -25,6 +25,32 @@
 \usepackage{multirow}
 \usepackage{multicol}						% gestion améliorée des colonnes
 \usepackage{subfig}
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%\lstset{style=mystyle}
 
 \usepackage[framemethod=tikz]{mdframed}		% mise en page
 \usepackage{calc}							% syntaxe naturelle pour les calculs
@@ -60,6 +86,11 @@
 \date{}
 }
 
+%\pagestyle{fancy}
+%\fancyhead[L]{\textbf{Guide d'utilisation de \LaTeX}}
+%\fancyhead[R]{Version Lite}
+%\fancyfoot[C]{}
+%\fancyfoot[R]{\thepage}
 \setlength{\parindent}{0pt}
 \begin{document}
 \maketitle
@@ -286,20 +317,22 @@ $\rightarrow$ L'argument "h" indique que l'on veut que notre image soit ici ("he
 \end{multicols}
 
 
+
 \begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.2]{ressources/KI.png}
-	\caption{Le logo du KI}
+\centering
+\includegraphics[scale=0.2]{ressources/KI.png}
+\caption{Le logo du KI}
 \end{figure}
 
 
 
-Voici une image incorporée dans un document avec les commandes ci-dessus. Il y a plein de manière de modifier la légende et l'image à votre convenance, comme l'encadrer, l'inclure dans du texte(package \texttt{wrapfig}) et d'autres. Plus de détails sont donnés dans le guide complet.\\
+
+Voici une image incorporée dans un document avec les commandes ci-dessus. Il y a plein de manière de modifier la légende et l'image à votre convenance, comme l'encadrer, l'inclure dans du texte (package \texttt{wrapfig}) et d'autres. Plus de détails sont donnés dans le guide complet.\\
 
 
 $\rightarrow$ Attention cependant, LaTeX peut décider de ne pas respecter votre argument entre crochet \texttt{[]} si cela conduit l'image à déborder de la page ou à trop éloigner le titre d'une section de son texte.\\
 
-Un autre exemple de flottants : Les tableaux, ceux-ci ont une syntaxe bien précise mais il existe certains sites comme \href{https://www.tablesgenerator.com/}{tablesgenerator} qui vous simplifie la vie, vous avez juste à rentrer vos donnés et il vous génère le code automatiquement.
+Un autre exemple de flottants : \textbf{les tableaux}, ceux-ci ont une syntaxe bien précise mais il existe certains sites comme \href{https://www.tablesgenerator.com/}{tablesgenerator} qui vous simplifie la vie, vous avez juste à rentrer vos donnés et il vous génère le code automatiquement.
 
 
 \subsection*{Ecrire des mathématiques}
@@ -342,7 +375,7 @@ Le code suivant:\\
 
 \verb|\[ a_1^2 + a_2^2 = a_3^2 \]| \\
 
-En utilisant des \texttt{\{ \}} lorsque les exposants/indices ne sont pas un seul symbole:\\
+En utilisant des \texttt{\{ \}} lorsque les exposants/indices ne sont pas réduits à un seul symbole:\\
 
 \verb|\[ x^{2 \alpha} - 1 = y_{ij} + y_{ji} \]|\\
 
@@ -378,7 +411,7 @@ Vous aurez souvent besoin d'écrire des normes, des produits scalaires ou même 
 
 \end{tabular}\\
 
-Les commandes \verb|\left| et \verb|\right| permettent d'ajuster la taille de vos parenthèses (marche avec \verb|[] {} ...|) à l'expression entre les deux. Ces commandes sont indissociables, l'une ne peut venir sans l'autre, ainsi si vous voulez juste mettre une parenthèse à gauche il vous faudra mettre un \verb|\right.| à la fin de votre expression et un \verb|\left(| au début.\\
+Les commandes \verb|\left| et \verb|\right| permettent d'ajuster la taille de vos parenthèses (marche avec \verb|[] {} ...|) à l'expression entre les deux. Ces commandes sont indissociables, l'une ne peut venir sans l'autre, ainsi si vous voulez juste mettre une parenthèse à gauche il vous faudra mettre un \verb|\right.| (le point est inclus) à la fin de votre expression et un \verb|\left(| au début.\\
 
 $\rightarrow$ Si jamais \verb|\left| et \verb|\right| ne donnent pas le résultat souhaité, vous pouvez essayer \verb|\big \Big \bigg \Bigg| (ordre de taille croissante).\\
 
@@ -398,15 +431,10 @@ En mode math (c'est à dire entre \verb|$ $| ou \verb|\[ \]| ) on ne peut pas es
 	 
 	 \verb|\,| & \verb|$x^2\, +3x\, +2$| & $x^2\, +3x\, +2$ \\ 
 	 
-	 \verb|\:|& \verb|$x^2\: +3x\: +2$| & $x^2\: +3x\: +2$ \\ 
-	 
-	 \verb|\;|& \verb|$x^2\; +3x\; +2$| & $x^2\; +3x\; +2$ \\ 
 	 
 	 \verb|\ | & \verb|$x^2\ +3x\ +2$| &  $x^2\ +3x\ +2$ \\ 
 	 
-	\verb|\quad | & \verb|$x^2\quad +3x\quad +2$| & $x^2\quad +3x\quad +2$  \\ 
-	 
-	 \verb|\qquad | & \verb|$x^2\qquad +3x\qquad +2$| & $x^2\qquad +3x\qquad +2$  \\ 
+	\verb|\quad | & \verb|$x^2\quad +3x\quad +2$| & $x^2\quad +3x\quad +2$  
 \end{tabular}
 \end{center} 
 
@@ -460,6 +488,7 @@ Si maintenant vous voulez aligner plusieurs lignes, soit pour plusieurs équatio
 $\rightarrow$ Le \verb|&| sert à aligner l'équation verticalement, on le met généralement au niveau du signe égal, à noter que vous pouvez en mettre plusieurs sur une même ligne.
 
 \end{multicols} 
+Les matrices s'écrivent d'ailleurs avec une syntaxe similaire, il faut utiliser l'environnement \texttt{pmatrix} et séparer les coefficients avec des \verb|&| et utiliser des \verb|\\| pour changer de ligne.\\  
 
 Voilà pour le principal, il y a bien sur une multitude d'autres environnement qui permettent d'augmenter la complexité, vous trouverez dans le guide complet une présentation de ces fonctionnalités. \\
 J'aimerais ici finir par quelque chose qui vous sera sûrement utile : \textbf{définir une fonction en mathématiques}.
@@ -488,7 +517,56 @@ Bien sur cet exemple est un degré de complexité au dessus de ce que vous pourr
 
 
 \clearpage
+\subsection*{Inclure du code}
+Dans la plupart de vos TPs, vous aurez à compléter un code Python ou même juste à le faire tourner pour faire une approximation numérique, un calcul de déformations, etc. Il vous faudra donc inclure dans votre compte-rendu la partie du code la plus importante que vous avez écrite. Pour cela, LaTeX vous propose le package \texttt{listings}.
 
+En n'oubliant pas de charger ce package en préambule de votre document, vous pourrez inclure du code de cette façon:
+
+\begin{lstlisting}[language=Python]
+import math as m
+import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+
+def OpenPtsFile(filename): #function to import data in Pts file
+	f = open(filename,'r')
+	print ('Reading file ' + filename)
+	s = f.readline()
+	vals = s.split("\t")
+	npts = int(vals[0])
+	nraw = int(vals[1])
+	ncol = int(vals[2])
+	print(npts, 'points,', nraw, 'raws,', ncol, 'columns')
+	Pts = np.zeros(shape=(nraw, ncol, 2))
+\end{lstlisting}
+
+Ce résultat est celui obtenu en faisant un simple copier-coller du code source, vous pouvez d'ailleurs éviter cette démarche par la commande :\\
+ \verb|\lstinputlisting[language=Python, firstline=2, lastline=23]{moncode.py}| qui va inclure votre code source de la ligne \texttt{firstline} (=2) à la ligne \texttt{lastline} (=23) puis le mettre en forme comme ci-dessus.\\
+
+\textbf{Rendre le code plus joli :}\\
+
+Il est possible de modifier l'aspect visuel du code dans votre document en définissant un \texttt{style} par l'intermédiaire de la commande \verb|\lstdefinestyle|. Les possibilités étant très nombreuses, je ne vais pas vous décrire toutes les options possibles, je vous montre plutôt un exemple de ce qu'il est possible de faire. Un petite recherche sur internet\footnote{Vous pouvez aussi consulter la documentation du package \texttt{listings} disponible \href{https://ctan.gutenberg.eu.org/macros/latex/contrib/listings/listings.pdf}{ici}} vous permettra d'en savoir plus.\\
+
+\lstset{style=mystyle}
+\begin{lstlisting}[language=Python]
+import math as m
+import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+
+def OpenPtsFile(filename): #function to import data in Pts file
+f = open(filename,'r')
+print ('Reading file ' + filename)
+s = f.readline()
+vals = s.split("\t")
+npts = int(vals[0])
+nraw = int(vals[1])
+ncol = int(vals[2])
+print(npts, 'points,', nraw, 'raws,', ncol, 'columns')
+Pts = np.zeros(shape=(nraw, ncol, 2))
+\end{lstlisting}  
+
+\clearpage
 \subsection*{Faire une bibliographie}
 
 Cette section est un peu plus technique car elle requiert l'usage d'un fichier tiers qui vous permettra de faire votre bibliographie. En premier lieu, il vous faut le package \verb|biblatex|, importez-le, puis suivez les étapes suivantes :
@@ -588,9 +666,9 @@ Ainsi, si vous êtes dans un environnement math, la commande \cmd{norme}{u} vous
 
 \textbf{Conclusion}\\
 
-Merci d'avoir lu ce guide, j'espère qu'il vous aura été utile et que les explications étaient assez claires. Si jamais vous voulez en savoir plus, sur n'importe quel aspect de ce qui a été présenté ici, je vous invite à consulter le guide complet disponible sur \href{http://latex.enpc.org}{ce site}.
+Merci d'avoir lu ce guide, j'espère qu'il vous aura été utile et que les explications étaient assez claires. Si jamais vous voulez en savoir plus, sur n'importe quel aspect de ce qui a été présenté ici, je vous invite à consulter le guide complet disponible sur \href{http://latex.enpc.org}{ce site}. Et surtout n'oubliez pas que \textbf{Google est votre ami}, la plupart de vos questions ont déjà été posées \textbf{et} répondues sur plein de forums.\\
 
-N'hésitez pas à me faire part de vos remarques ou commentaires, soit par mail à l'adresse \\ \texttt{pierre-louis.ruhlmann@eleves.enpc.fr} ou en contactant le KI par Facebook ou sur \href{http://clubinfo.enpc.org}{son site}.
+N'hésitez pas à me faire part de vos remarques ou commentaires, soit par mail à l'adresse \\ \texttt{pierre-louis.ruhlmann@eleves.enpc.fr} ou en contactant le KI par Facebook ou sur \href{http://clubinfo.enpc.org}{son site}.\\
 
 
 
