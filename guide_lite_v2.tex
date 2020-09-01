@@ -47,7 +47,7 @@
 	showspaces=false,                
 	showstringspaces=false,
 	showtabs=false,                  
-	tabsize=2
+	tabsize=4
 }
 
 %\lstset{style=mystyle}
@@ -555,15 +555,15 @@ import scipy as sp
 import matplotlib.pyplot as plt
 
 def OpenPtsFile(filename): #function to import data in Pts file
-f = open(filename,'r')
-print ('Reading file ' + filename)
-s = f.readline()
-vals = s.split("\t")
-npts = int(vals[0])
-nraw = int(vals[1])
-ncol = int(vals[2])
-print(npts, 'points,', nraw, 'raws,', ncol, 'columns')
-Pts = np.zeros(shape=(nraw, ncol, 2))
+	f = open(filename,'r')
+	print ('Reading file ' + filename)
+	s = f.readline()
+	vals = s.split("\t")
+	npts = int(vals[0])
+	nraw = int(vals[1])
+	ncol = int(vals[2])
+	print(npts, 'points,', nraw, 'raws,', ncol, 'columns')
+	Pts = np.zeros(shape=(nraw, ncol, 2))
 \end{lstlisting}  
 
 \clearpage
@@ -602,7 +602,7 @@ Cette section est un peu plus technique car elle requiert l'usage d'un fichier t
 
 \end{figure}
 
-$\rightarrow$ Voila la marche à suivre, en fonction des œuvres à citer, il vous faudra juste changer l'étape 3 en mettant d'autres œuvres comme des articles \verb|@article|, des thèses \verb|@thesis|,... .
+$\rightarrow$ Voila la marche à suivre, en fonction des œuvres à citer, il vous faudra juste changer l'étape 3 en mettant d'autres œuvres comme des articles \verb|@article|, des thèses \verb|@thesis|,... . 
 
 \newpage
 
@@ -651,7 +651,7 @@ Maintenant il faudrait que votre commande puisse accepter des paramètres, c'est
 	
 	\columnbreak
 	
-	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande, le \verb|#1| sera remplacé par le texte que vous mettrez dans \verb|\bb{...}|\footnote{Si le nombre d'arguments est supérieur à 1, vous y ferez référence avec \texttt{\#1, \#2,}etc . Et pour utiliser votre commande vous devrez écrire \texttt{\tb macommande}\{\textit{argument 1}\}\{\textit{argument 2}\}...\{\textit{argument n}\}.}.
+	$\rightarrow$ Le \verb|\bb| est le nom de votre commande tandis que \verb|[1]| est le nombre d'arguments. Enfin \cmd{mathbb}{\#1} est ce que fait votre commande, le \verb|#1| sera remplacé par le texte que vous mettrez dans \verb|\bb{...}|\footnote{Si le nombre d'arguments est supérieur à 1, vous y ferez référence avec \texttt{\#1, \#2, }etc . Et pour utiliser votre commande vous devrez écrire \texttt{\tb macommande}\{\textit{argument 1}\}\{\textit{argument 2}\}...\{\textit{argument n}\}.}.
 \end{multicols}
 
 Voilà, nous pouvons maintenant écrire la commande vue au début de la section, nous voulons un seul paramètre, la fonction \texttt{u}, tout le reste doit être fixé:
