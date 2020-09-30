@@ -1,2 +1,6 @@
 test
+<<<<<<< HEAD
 append to test 1
+=======
+append to test 2
+>>>>>>> 53359645c2662e3480e7dce467d9e13cbbcdfb1b
